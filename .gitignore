@@ -1,6 +1,7 @@
 *.class
-/TiraLabra/nbproject/private/
-/TiraLabra/nbproject/dist/
+
+TiraLabra/nbproject/private/
+TiraLabra/nbproject/dist/
 
 # Package Files #
 *.jar

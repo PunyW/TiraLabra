@@ -7,3 +7,4 @@ TiraLabra/nbproject/dist/
 *.jar
 *.war
 *.ear
+/TiraLabra/build/

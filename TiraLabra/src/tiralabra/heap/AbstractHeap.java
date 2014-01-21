@@ -39,7 +39,7 @@ public abstract class AbstractHeap<T> implements Heap<T> {
 
     @Override
     public T remove() {
-        if(currentSize == 0) {
+        if (currentSize == 0) {
             return null;
         }
         return (T) heap[0];
@@ -48,10 +48,18 @@ public abstract class AbstractHeap<T> implements Heap<T> {
     @Override
     public void heapify(int index) {
     }
-    
+
     @Override
     public int size() {
         return currentSize;
+    }
+
+    @Override
+    public void clear() {
+        for (int i = 0; i < currentSize; i++) {
+            heap[i] = null;
+        }
+        currentSize = 0;
     }
 
 }

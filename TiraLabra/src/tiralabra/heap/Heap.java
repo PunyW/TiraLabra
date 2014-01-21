@@ -46,4 +46,10 @@ public interface Heap<T> {
      */
     public int size();
 
+    /**
+     * Removes all the objects from this heap, the heap will be empty after this
+     * call
+     */
+    public void clear();
+
 }

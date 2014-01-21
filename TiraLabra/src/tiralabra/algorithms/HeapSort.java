@@ -1,4 +1,4 @@
-package tiralabra.heapsort;
+package tiralabra.algorithms;
 
 /**
  *

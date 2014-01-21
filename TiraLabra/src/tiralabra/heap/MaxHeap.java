@@ -27,7 +27,8 @@ public class MaxHeap<T> extends AbstractHeap<T> {
             return null;
         }
         T item = (T) heap[0];
-
+        
+        
         return item;
     }
 

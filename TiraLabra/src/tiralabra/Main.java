@@ -11,6 +11,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        int[] test1 = new int[]{1, 5, 6, 23, 32, 51, 8};
+        int[] test2 = new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
     }
 
 }

@@ -1,13 +1,32 @@
 package tiralabra.heap;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Joel
+ * @param <T> Type of elements contained in this heap
  */
-public abstract class AbstractHeap implements Heap {
+public abstract class AbstractHeap<T> implements Heap<T> {
 
+    private static final int DEFAULT_CAPACITY = 10;
+    protected final Comparator<? super T> comparator;
     protected int currentSize;
-    protected Node[] nodes;
+    protected Object[] heap;
+
+    public AbstractHeap() {
+        this(null, DEFAULT_CAPACITY);
+    }
+
+    public AbstractHeap(Comparator<? super T> comparator, int initialCapacity) {
+        this.comparator = comparator;
+        this.heap = new Object[initialCapacity];
+        this.currentSize = 0;
+    }
+
+    public AbstractHeap(int capacity) {
+        this(null, capacity);
+    }
 
     @Override
     public boolean isEmpty() {
@@ -15,41 +34,24 @@ public abstract class AbstractHeap implements Heap {
     }
 
     @Override
-    public void add(Node node) {
+    public void add(T e) {
     }
 
     @Override
-    public Node remove() {
-        return nodes[0];
+    public T remove() {
+        if(currentSize == 0) {
+            return null;
+        }
+        return (T) heap[0];
     }
 
     @Override
     public void heapify(int index) {
     }
-
+    
     @Override
-    public Node parent(int index) {
-        return nodes[index / 2];
-    }
-
-    @Override
-    public Node left(int index) {
-        int childIndex = index * 2;
-        if (currentSize >= childIndex) {
-            return nodes[childIndex];
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public Node right(int index) {
-        int childIndex = index * 2 + 1;
-        if (currentSize >= childIndex) {
-            return nodes[childIndex];
-        } else {
-            return null;
-        }
+    public int size() {
+        return currentSize;
     }
 
 }

@@ -1,10 +1,13 @@
 package tiralabra.heap;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Joel
+ * @param <T> Type of elements held in this heap
  */
-public class MaxHeap extends AbstractHeap {
+public class MaxHeap<T> extends AbstractHeap<T> {
 
     @Override
     public void heapify(int index) {
@@ -12,12 +15,20 @@ public class MaxHeap extends AbstractHeap {
     }
 
     @Override
-    public void add(Node node) {
+    public void add(T node) {
         ++currentSize;
         int i = currentSize;
-        while(i > 0 && parent(i).getValue() < node.getValue()) {
-            
+
+    }
+
+    @Override
+    public T remove() {
+        if (currentSize == 0) {
+            return null;
         }
+        T item = (T) heap[0];
+
+        return item;
     }
 
 }

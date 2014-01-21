@@ -5,9 +5,10 @@ package tiralabra.heap;
  * element of the heap.
  *
  * @author Joel
+ * @param <T> Type of elements contained in this heap
  *
  */
-public interface Heap {
+public interface Heap<T> {
 
     /**
      * Check if the heap is empty.
@@ -19,9 +20,9 @@ public interface Heap {
     /**
      * Add an item to the heap. Override this method in heap implementation.
      *
-     * @param node Node to be inserted
+     * @param e E to be inserted
      */
-    public void add(Node node);
+    public void add(T e);
 
     /**
      * Remove the first item of the heap, in max-heap the item with maximum
@@ -29,7 +30,7 @@ public interface Heap {
      *
      * @return First item of the heap
      */
-    public Node remove();
+    public T remove();
 
     /**
      * Check that the heap conditions are met at the index node, if they aren't
@@ -38,34 +39,11 @@ public interface Heap {
      * @param index The node which heap condition is to be inspected
      */
     public void heapify(int index);
-
-    /**
-     * Get the parent of the node.
-     *
-     * @param index Which nodes parent
-     * @return Returns the parent of the given node
-     */
-    public Node parent(int index);
-
-    /**
-     * Get the left child of the node, returns null if the node has no left
-     * child.
-     *
-     * @param index Which nodes left child
-     * @return Returns null if the node has no left child, otherwise returns the
-     * left child
-     */
-    public Node left(int index);
-
-    /**
-     * Get the right child of the node, returns null if the node has no right
-     * child.
-     *
-     * @param index Which nodes right child
-     * @return Returns null if the node has no right child, otherwise returns
-     * the right child
-     */
-    public Node right(int index);
     
+    /**
+     * 
+     * @return how many elements there is currently in the heap 
+     */
+    public int size();
 
 }

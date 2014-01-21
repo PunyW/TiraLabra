@@ -6,7 +6,12 @@ package tiralabra.algorithms;
  */
 public class BubbleSort {
 
-    public int[] sort(int[] list) {
+    /**
+     * Sort an array of integers
+     *
+     * @param list list to be sorted
+     */
+    public void sort(int[] list) {
 
         boolean sorted = false;
 
@@ -21,8 +26,6 @@ public class BubbleSort {
                 }
             }
         }
-
-        return list;
     }
 
 }

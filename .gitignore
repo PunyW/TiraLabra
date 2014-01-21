@@ -8,3 +8,4 @@ TiraLabra/nbproject/dist/
 *.war
 *.ear
 /TiraLabra/build/
+/TiraLabra/dist/

@@ -3,6 +3,7 @@ package tiralabra;
 import java.util.Arrays;
 import java.util.Random;
 import tiralabra.algorithms.BubbleSort;
+import tiralabra.algorithms.CountingSort;
 import tiralabra.algorithms.HeapSort;
 import tiralabra.algorithms.MergeSort;
 import tiralabra.algorithms.QuickSort;
@@ -15,10 +16,11 @@ import tiralabra.algorithms.QuickSort;
  */
 public class BenchmarkSorting {
 
-    private long bubbleTime, mergeTime, heapTime, quickTime, standardTime;
-    private long bubbleAvg, mergeAvg, heapAvg, quickAvg, standardAvg;
+    private long bubbleTime, mergeTime, heapTime, quickTime, countingTime, standardTime;
+    private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
     private final int arraySize;
     private final int loops = 10;
+    private final int maxInt = 1000000;
 
     /**
      *
@@ -30,6 +32,7 @@ public class BenchmarkSorting {
         mergeTime = 0;
         heapTime = 0;
         quickTime = 0;
+        countingTime = 0;
         standardTime = 0;
     }
 
@@ -49,12 +52,14 @@ public class BenchmarkSorting {
             int[] mergeArray = testArray;
             int[] heapArray = testArray;
             int[] quickArray = testArray;
+            int[] countArray = testArray;
 
             testBubble(bubbleArray);
             testMerge(mergeArray);
             testHeap(heapArray);
             testQuick(quickArray);
             testStandard(testArray);
+            testCounting(countArray);
         }
 
         System.out.println("================================================");
@@ -69,6 +74,7 @@ public class BenchmarkSorting {
         testHeap(testArray);
         testQuick(testArray);
         testStandard(testArray);
+        testCounting(testArray);
 
         System.out.println("================================================");
         System.out.println("Time in milliseconds it took to sort an already\n"
@@ -84,6 +90,7 @@ public class BenchmarkSorting {
         heapAvg = heapTime / loops;
         quickAvg = quickTime / loops;
         standardAvg = standardTime / loops;
+        countingAvg = countingTime / loops;
 
         bubbleTime = 0;
         mergeTime = 0;
@@ -93,11 +100,12 @@ public class BenchmarkSorting {
     }
 
     private void printStats() {
-        System.out.println("Bubble Sort average: " + bubbleAvg);
-        System.out.println("Merge Sort average: " + mergeAvg);
-        System.out.println("Heap Sort average: " + heapAvg);
-        System.out.println("Quick Sort average: " + quickAvg);
-        System.out.println("Arrays.sort average: " + standardAvg);
+        System.out.println("Bubble Sort: " + bubbleAvg);
+        System.out.println("Merge Sort: " + mergeAvg);
+        System.out.println("Heap Sort: " + heapAvg);
+        System.out.println("Quick Sort: " + quickAvg);
+        System.out.println("Counting Sort: " + countingAvg);
+        System.out.println("Arrays.sort: " + standardAvg);
         System.out.println("");
     }
 
@@ -110,7 +118,7 @@ public class BenchmarkSorting {
         int[] testArray = new int[arraySize];
         Random random = new Random();
         for (int i = 0; i < arraySize; i++) {
-            testArray[i] = random.nextInt(1000000);
+            testArray[i] = random.nextInt(maxInt);
         }
         return testArray;
     }
@@ -182,6 +190,23 @@ public class BenchmarkSorting {
         long stopTime = System.currentTimeMillis();
         long elapsed = stopTime - startTime;
         quickTime += elapsed;
+    }
+
+    /**
+     * Method to test how long it takes for counting sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
+    private void testCounting(int[] testArray) {
+        long startTime = System.currentTimeMillis();
+        CountingSort.sort(testArray, maxInt);
+
+        long stopTime = System.currentTimeMillis();
+        long elapsed = stopTime - startTime;
+        countingTime += elapsed;
     }
 
     /**

@@ -15,7 +15,6 @@ public class Main {
         BenchmarkSorting benchmark = new BenchmarkSorting(10000);
         benchmark.run();
 
-
     }
 
     private static int[] randomizeArray() {

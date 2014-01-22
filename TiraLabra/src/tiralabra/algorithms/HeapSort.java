@@ -14,10 +14,11 @@ public class HeapSort {
      * @param list list to be sorted
      */
     public static void sort(int[] list) {
+        heapSize = list.length - 1;
         buildHeap(list);
         for (int i = heapSize; i > 0; i--) {
             swap(list, 0, i);
-            --heapSize;
+            heapSize--;
             heapify(list, 0);
         }
     }
@@ -28,7 +29,6 @@ public class HeapSort {
      * @param A list to be modified
      */
     private static void buildHeap(int[] A) {
-        heapSize = A.length - 1;
         for (int i = heapSize / 2; i >= 0; i--) {
             heapify(A, i);
         }
@@ -62,7 +62,7 @@ public class HeapSort {
                 swap(A, index, largest);
                 heapify(A, largest);
             }
-        } else if (left == A.length && A[index] < A[left]) {
+        } else if (left == A.length - 1 && A[index] < A[left]) {
             swap(A, index, left);
         }
     }

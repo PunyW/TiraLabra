@@ -41,7 +41,7 @@ public class HeapSort {
      * larger children and the nodes position. And recursively call heapify at
      * the larger child's position. If there is only left child which is larger
      * than the node itself swap them.
-     *
+     * </p>
      *
      *
      * @param A Array

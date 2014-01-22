@@ -51,6 +51,21 @@ public class BubbleSortTest {
             checkArray();
         }
     }
+    
+    @Test
+    public void checkSpecial() {
+        int[] special = new int[]{1, 1, 1, 3, 3, 3, 1, 5, 5, 1};
+
+        BubbleSort.sort(special);
+        for (int i = 0; i < special.length; i++) {
+            if (testArray[i] > testArray[i + 1]) {
+                fail("There should be no larger numbers before smaller ones, "
+                        + "in the sorted array. ");
+            }
+        }
+        assertTrue(true);
+    }
+
 
     private void checkArray() {
         for (int i = 0; i < SIZE - 1; i++) {

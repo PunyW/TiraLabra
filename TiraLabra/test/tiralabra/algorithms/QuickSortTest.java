@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
  *
  * @author Joel
  */
-public class HeapSortTest {
+public class QuickSortTest {
 
     private int[] testArray;
     private final int SIZE = 1000;
     private final int MAX = 100000;
 
-    public HeapSortTest() {
+    public QuickSortTest() {
     }
 
     @Before
@@ -36,10 +36,10 @@ public class HeapSortTest {
     }
 
     @Test
-    public void testHeapSort() {
+    public void testQuickSort() {
         randomizeArray();
 
-        HeapSort.sort(testArray);
+        QuickSort.sort(testArray);
         checkArray();
     }
 
@@ -47,16 +47,16 @@ public class HeapSortTest {
     public void worksRepeadetly() {
         for (int i = 0; i < 1000; i++) {
             randomizeArray();
-            HeapSort.sort(testArray);
+            QuickSort.sort(testArray);
             checkArray();
         }
     }
-    
+
     @Test
     public void checkSpecial() {
         int[] special = new int[]{1, 1, 1, 3, 3, 3, 1, 5, 5, 1};
 
-        HeapSort.sort(special);
+        QuickSort.sort(special);
         for (int i = 0; i < special.length; i++) {
             if (testArray[i] > testArray[i + 1]) {
                 fail("There should be no larger numbers before smaller ones, "
@@ -65,7 +65,6 @@ public class HeapSortTest {
         }
         assertTrue(true);
     }
-
 
     private void checkArray() {
         for (int i = 0; i < SIZE - 1; i++) {

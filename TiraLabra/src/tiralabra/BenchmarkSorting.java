@@ -15,13 +15,10 @@ import tiralabra.algorithms.QuickSort;
  */
 public class BenchmarkSorting {
 
-    private long bubbleTime;
-    private long mergeTime;
-    private long heapTime;
-    private long quickTime;
-    private long standardTime;
-
+    private long bubbleTime, mergeTime, heapTime, quickTime, standardTime;
+    private long bubbleAvg, mergeAvg, heapAvg, quickAvg, standardAvg;
     private final int arraySize;
+    private final int loops = 10;
 
     /**
      *
@@ -42,10 +39,12 @@ public class BenchmarkSorting {
      *
      */
     public void run() {
-        for (int i = 0; i < 10; i++) {
+        int[] testArray = null;
+
+        for (int i = 0; i < loops; i++) {
             // Get new random array and copy it for all the sorting algorithms,
             // Arrays.sort tests the original testArray
-            int[] testArray = randomizeArray();
+            testArray = randomizeArray();
             int[] bubbleArray = testArray;
             int[] mergeArray = testArray;
             int[] heapArray = testArray;
@@ -56,19 +55,50 @@ public class BenchmarkSorting {
             testHeap(heapArray);
             testQuick(quickArray);
             testStandard(testArray);
-
         }
-        long bubbleAverage = bubbleTime / 10;
-        long mergeAverage = mergeTime / 10;
-        long heapAverage = heapTime / 10;
-        long quickAverage = quickTime / 10;
-        long standardAverage = standardTime / 10;
 
-        System.out.println("Bubble Sort average: " + bubbleAverage);
-        System.out.println("Merge Sort average: " + mergeAverage);
-        System.out.println("Heap Sort average: " + heapAverage);
-        System.out.println("Quick Sort average: " + quickAverage);
-        System.out.println("Arrays.sort average: " + standardAverage);
+        System.out.println("================================================");
+        System.out.println("Average time used in milliseconds to sort an array\n"
+                + "with " + arraySize + " items.");
+        System.out.println("================================================");
+        calculateAverages();
+        printStats();
+
+        testBubble(testArray);
+        testMerge(testArray);
+        testHeap(testArray);
+        testQuick(testArray);
+        testStandard(testArray);
+
+        System.out.println("================================================");
+        System.out.println("Time in milliseconds it took to sort an already\n"
+                + "sorted array with " + arraySize + " items.");
+        System.out.println("================================================");
+        calculateAverages();
+        printStats();
+    }
+
+    private void calculateAverages() {
+        bubbleAvg = bubbleTime / loops;
+        mergeAvg = mergeTime / loops;
+        heapAvg = heapTime / loops;
+        quickAvg = quickTime / loops;
+        standardAvg = standardTime / loops;
+
+        bubbleTime = 0;
+        mergeTime = 0;
+        heapTime = 0;
+        quickTime = 0;
+        standardTime = 0;
+    }
+
+    private void printStats() {
+        System.out.println("Bubble Sort average: " + bubbleAvg);
+        System.out.println("Merge Sort average: " + mergeAvg);
+        System.out.println("Heap Sort average: " + heapAvg);
+        System.out.println("Quick Sort average: " + quickAvg);
+        System.out.println("Arrays.sort average: " + standardAvg);
+        System.out.println("");
     }
 
     /**
@@ -85,6 +115,14 @@ public class BenchmarkSorting {
         return testArray;
     }
 
+    /**
+     * Method to test how long it takes for bubble sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
     private void testBubble(int[] testArray) {
         long startTime = System.currentTimeMillis();
         BubbleSort.sort(testArray);
@@ -94,6 +132,14 @@ public class BenchmarkSorting {
         bubbleTime += elapsed;
     }
 
+    /**
+     * Method to test how long it takes for merge sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
     private void testMerge(int[] testArray) {
         long startTime = System.currentTimeMillis();
         MergeSort.sort(testArray);
@@ -104,6 +150,14 @@ public class BenchmarkSorting {
 
     }
 
+    /**
+     * Method to test how long it takes for heap sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
     private void testHeap(int[] testArray) {
         long startTime = System.currentTimeMillis();
         HeapSort.sort(testArray);
@@ -113,6 +167,14 @@ public class BenchmarkSorting {
         heapTime += elapsed;
     }
 
+    /**
+     * Method to test how long it takes for quick sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
     private void testQuick(int[] testArray) {
         long startTime = System.currentTimeMillis();
         QuickSort.sort(testArray);
@@ -122,6 +184,14 @@ public class BenchmarkSorting {
         quickTime += elapsed;
     }
 
+    /**
+     * Method to test how long it takes for Arrays.sort to sort the array in
+     * milliseconds. Get the system time before calling sort and catch the
+     * system time after the call finishes and calculate time taken based on
+     * that.
+     *
+     * @param testArray Array to be sorted
+     */
     private void testStandard(int[] testArray) {
         long startTime = System.currentTimeMillis();
         Arrays.sort(testArray);

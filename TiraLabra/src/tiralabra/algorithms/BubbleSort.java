@@ -11,7 +11,7 @@ public class BubbleSort {
      *
      * @param list list to be sorted
      */
-    public void sort(int[] list) {
+    public static void sort(int[] list) {
 
         boolean sorted = false;
 

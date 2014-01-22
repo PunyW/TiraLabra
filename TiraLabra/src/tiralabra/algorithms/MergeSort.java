@@ -1,5 +1,7 @@
 package tiralabra.algorithms;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Joel
@@ -11,71 +13,58 @@ public class MergeSort {
      *
      * @param A Array to be sorted
      */
-    public void sort(int[] A) {
-        sort(A, 0, A.length);
-    }
-
-    /**
-     * Private method for the sorting. that has the left and right parameters.
-     *
-     * @param A Array to be sorted
-     * @param left left side of divider
-     * @param right right side of the divider
-     */
-    private void sort(int[] A, int left, int right) {
-        if (left < right) {
-            int middle = (left + right) / 2;
-            sort(A, left, middle);
-            sort(A, middle + 1, right);
-            merge(A, left, middle, right);
-
+    public static void sort(int[] A) {
+        int length = 1;
+        while (length < A.length) {
+            int start = 0;
+            while (start + length <= A.length) {
+                int left = start;
+                int middle = start + length - 1;
+                int right = Math.min(middle + length, A.length - 1);
+                merge(A, left, middle, right);
+                start = start + 2 * length;
+            }
+            length *= 2;
         }
     }
 
     /**
      * Merge the divided arrays back and sort them while doing it.
-     * <p>
-     * Copy array A[left + 1, middle] to new array L[] and A[middle, right] to
-     * new array R[]. And from here start placing the i = 0 A[i] the smaller
-     * integer from L[0] and R[0], after which increment i with one. If L[0] was
-     * added to the A[i], next add the smaller integer from L[1] and R[0] to
-     * A[i]
-     * </p>
-     *
+     * <p> Copy left and right side of the array into an temp array temp. Copy 
+     * the smallest values from either left or right side of the temp array
+     * back into the original target array. 
      *
      * @param A Array to be merged
      * @param left left side of the array
      * @param middle middle of the array
      * @param right right side of the array
      */
-    private void merge(int[] A, int left, int middle, int right) {
-        int n1 = middle - left;
-        int n2 = right - middle;
-        // Create new arrays L, R and copy the values from A
-        int[] L = new int[n1 + 1];
-        int[] R = new int[n2 + 1];
+    private static void merge(int[] A, int left, int middle, int right) {
+        int[] temp = new int[left + right + 1];
 
-        for (int i = 0; i < n1; i++) {
-            L[i] = A[left + i];
+        for (int i = left; i <= right; i++) {
+            temp[i] = A[i];
         }
-        L[n1] = Integer.MAX_VALUE;
 
-        for (int i = 0; i < n2; i++) {
-            R[i] = A[middle + i];
-        }
-        R[n2] = Integer.MAX_VALUE;
+        int i = left;
+        int j = middle + 1;
+        int k = i;
 
-        int i = 0;
-        int j = 0;
-
-        for (int k = left; k < right; k++) {
-            if (L[i] <= R[j]) {
-                A[k] = L[i];
-                ++i;
+        while (i <= middle && j <= right) {
+            if (temp[i] <= temp[j]) {
+                A[k] = temp[i];
+                i++;
             } else {
-                A[k] = R[j];
-                ++j;
+                A[k] = temp[j];
+                j++;
             }
+            k++;
+        }
+
+        while (i <= middle) {
+            A[k] = temp[i];
+            k++;
+            i++;
         }
     }
 }

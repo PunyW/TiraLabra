@@ -6,14 +6,14 @@ package tiralabra.algorithms;
  */
 public class HeapSort {
 
-    private int heapSize;
+    private static int heapSize;
 
     /**
      * Sort an list using heap sort
      *
      * @param list list to be sorted
      */
-    public void sort(int[] list) {
+    public static void sort(int[] list) {
         buildHeap(list);
         for (int i = heapSize; i > 0; i--) {
             swap(list, 0, i);
@@ -27,7 +27,7 @@ public class HeapSort {
      *
      * @param A list to be modified
      */
-    private void buildHeap(int[] A) {
+    private static void buildHeap(int[] A) {
         heapSize = A.length - 1;
         for (int i = heapSize / 2; i >= 0; i--) {
             heapify(A, i);
@@ -47,7 +47,7 @@ public class HeapSort {
      * @param A Array
      * @param index index of the node to be inspected
      */
-    private void heapify(int[] A, int index) {
+    private static void heapify(int[] A, int index) {
         int left = leftChild(index);
         int right = rightChild(index);
         int largest;
@@ -74,7 +74,7 @@ public class HeapSort {
      * @param i first node to be swapped
      * @param k second node to be swapped
      */
-    private void swap(int[] A, int i, int k) {
+    private static void swap(int[] A, int i, int k) {
         int temp = A[i];
         A[i] = A[k];
         A[k] = temp;
@@ -86,7 +86,7 @@ public class HeapSort {
      * @param index nodes index
      * @return index of the nodes left child
      */
-    private int leftChild(int index) {
+    private static int leftChild(int index) {
         return index * 2;
     }
 
@@ -96,7 +96,7 @@ public class HeapSort {
      * @param index nodes index
      * @return index of the nodes right child
      */
-    private int rightChild(int index) {
+    private static int rightChild(int index) {
         return index * 2 + 1;
     }
 

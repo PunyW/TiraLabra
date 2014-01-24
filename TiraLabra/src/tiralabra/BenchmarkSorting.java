@@ -20,7 +20,7 @@ public class BenchmarkSorting {
     private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
     private final int arraySize;
     private final int loops = 10;
-    private final int maxInt = 1000000;
+    private final int maxInt = 9999999;
 
     /**
      *
@@ -48,18 +48,18 @@ public class BenchmarkSorting {
             // Get new random array and copy it for all the sorting algorithms,
             // Arrays.sort tests the original testArray
             testArray = randomizeArray();
-            int[] bubbleArray = testArray;
-            int[] mergeArray = testArray;
-            int[] heapArray = testArray;
-            int[] quickArray = testArray;
-            int[] countArray = testArray;
+            int[] bubbleArray = Arrays.copyOf(testArray, arraySize);
+            int[] mergeArray = Arrays.copyOf(testArray, arraySize);
+            int[] heapArray = Arrays.copyOf(testArray, arraySize);
+            int[] quickArray = Arrays.copyOf(testArray, arraySize);
+            int[] countArray = Arrays.copyOf(testArray, arraySize);
 
             testBubble(bubbleArray);
             testMerge(mergeArray);
             testHeap(heapArray);
             testQuick(quickArray);
-            testStandard(testArray);
             testCounting(countArray);
+            testStandard(testArray);
         }
 
         System.out.println("================================================");
@@ -69,19 +69,19 @@ public class BenchmarkSorting {
         calculateAverages();
         printStats();
 
-        testBubble(testArray);
-        testMerge(testArray);
-        testHeap(testArray);
-        testQuick(testArray);
-        testStandard(testArray);
-        testCounting(testArray);
-
-        System.out.println("================================================");
-        System.out.println("Time in milliseconds it took to sort an already\n"
-                + "sorted array with " + arraySize + " items.");
-        System.out.println("================================================");
-        calculateAverages();
-        printStats();
+//        testBubble(testArray);
+//        testMerge(testArray);
+//        testHeap(testArray);
+//        testQuick(testArray);
+//        testStandard(testArray);
+//        testCounting(testArray);
+//
+//        System.out.println("================================================");
+//        System.out.println("Time in milliseconds it took to sort an already\n"
+//                + "sorted array with " + arraySize + " items.");
+//        System.out.println("================================================");
+//        calculateAverages();
+//        printStats();
     }
 
     private void calculateAverages() {
@@ -100,12 +100,12 @@ public class BenchmarkSorting {
     }
 
     private void printStats() {
-        System.out.println("Bubble Sort: " + bubbleAvg);
-        System.out.println("Merge Sort: " + mergeAvg);
-        System.out.println("Heap Sort: " + heapAvg);
-        System.out.println("Quick Sort: " + quickAvg);
-        System.out.println("Counting Sort: " + countingAvg);
-        System.out.println("Arrays.sort: " + standardAvg);
+        System.out.println("Bubble Sort: " + bubbleAvg / 1000000);
+        System.out.println("Merge Sort: " + mergeAvg / 1000000);
+        System.out.println("Heap Sort: " + heapAvg / 1000000);
+        System.out.println("Quick Sort: " + quickAvg / 1000000);
+        System.out.println("Counting Sort: " + countingAvg / 1000000);
+        System.out.println("Arrays.sort: " + standardAvg / 1000000);
         System.out.println("");
     }
 
@@ -132,10 +132,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testBubble(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         BubbleSort.sort(testArray);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         bubbleTime += elapsed;
     }
@@ -149,10 +149,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testMerge(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         MergeSort.sort(testArray);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         mergeTime += elapsed;
 
@@ -167,10 +167,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testHeap(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         HeapSort.sort(testArray);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         heapTime += elapsed;
     }
@@ -184,10 +184,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testQuick(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         QuickSort.sort(testArray);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         quickTime += elapsed;
     }
@@ -201,10 +201,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testCounting(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         CountingSort.sort(testArray, maxInt);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         countingTime += elapsed;
     }
@@ -218,10 +218,10 @@ public class BenchmarkSorting {
      * @param testArray Array to be sorted
      */
     private void testStandard(int[] testArray) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         Arrays.sort(testArray);
 
-        long stopTime = System.currentTimeMillis();
+        long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
         standardTime += elapsed;
     }

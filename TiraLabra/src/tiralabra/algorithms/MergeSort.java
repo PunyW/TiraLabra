@@ -1,70 +1,74 @@
 package tiralabra.algorithms;
 
-import java.util.Arrays;
-
 /**
+ * Class that sorts array consisting of integers using merge sort
  *
  * @author Joel
  */
 public class MergeSort {
 
     /**
-     * Sort an array of integers using the method of merge sort.
+     * Sort an consisting of integers using merge sort
      *
      * @param A Array to be sorted
      */
     public static void sort(int[] A) {
-        int length = 1;
-        while (length < A.length) {
-            int start = 0;
-            while (start + length <= A.length) {
-                int left = start;
-                int middle = start + length - 1;
-                int right = Math.min(middle + length, A.length - 1);
-                merge(A, left, middle, right);
-                start = start + 2 * length;
-            }
-            length *= 2;
+        int[] temp = new int[A.length];
+        sort(A, temp, 0, A.length - 1);
+    }
+
+    /**
+     * Recursively call the sort to sort two halves of the array
+     *
+     * @param A array to be sorted
+     * @param left left side boundary of the recursive sorting
+     * @param right right side boundary of the recursive sorting
+     */
+    private static void sort(int[] A, int[] temp, int left, int right) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            sort(A, temp, left, middle);
+            sort(A, temp, middle + 1, right);
+
+            merge(A, temp, left, middle + 1, right);
         }
     }
 
     /**
      * Merge the divided arrays back and sort them while doing it.
-     * <p> Copy left and right side of the array into an temp array temp. Copy 
-     * the smallest values from either left or right side of the temp array
-     * back into the original target array. 
+     * <p>
+     * Copy left and right side of the array into an temp array temp. Copy the
+     * smallest values from either left or right side of the temp array back
+     * into the original target array.
      *
      * @param A Array to be merged
      * @param left left side of the array
      * @param middle middle of the array
      * @param right right side of the array
      */
-    private static void merge(int[] A, int left, int middle, int right) {
-        int[] temp = new int[left + right + 1];
-
+    private static void merge(int[] A, int[] temp, int left, int middle, int right) {
         for (int i = left; i <= right; i++) {
             temp[i] = A[i];
         }
 
-        int i = left;
-        int j = middle + 1;
-        int k = i;
+        int leftEnd = middle - 1;
+        int k = left;
 
-        while (i <= middle && j <= right) {
-            if (temp[i] <= temp[j]) {
-                A[k] = temp[i];
-                i++;
+        while (left <= leftEnd && middle <= right) {
+            if (temp[left] <= temp[middle]) {
+                A[k++] = temp[left++];
             } else {
-                A[k] = temp[j];
-                j++;
+                A[k++] = temp[middle++];
             }
-            k++;
         }
 
-        while (i <= middle) {
-            A[k] = temp[i];
-            k++;
-            i++;
+        while (left <= leftEnd) {
+            A[k++] = temp[left++];
+        }
+
+        while (middle <= right) {
+            A[k++] = temp[middle++];
         }
     }
 }

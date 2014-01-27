@@ -18,9 +18,10 @@ public class BenchmarkSorting {
 
     private long bubbleTime, mergeTime, heapTime, quickTime, countingTime, standardTime;
     private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
-    private final int arraySize;
+    private int arraySize;
     private final int loops = 10;
     private final int maxInt = 9999999;
+    private boolean disableBubble;
 
     /**
      *
@@ -36,25 +37,35 @@ public class BenchmarkSorting {
         standardTime = 0;
     }
 
+    public void setSize(int size) {
+        this.arraySize = size;
+    }
+
     /**
      * Loop through multiple tests with all the algorithms, and get their
      * average spent time sorting an array
      *
+     * @param disableBubble If sorting huge arrays it might be advisable to
+     * disable bubble sorting.
      */
-    public void run() {
+    public void run(boolean disableBubble) {
+        this.disableBubble = disableBubble;
         int[] testArray = null;
 
         for (int i = 0; i < loops; i++) {
             // Get new random array and copy it for all the sorting algorithms,
             // Arrays.sort tests the original testArray
             testArray = randomizeArray();
-            int[] bubbleArray = Arrays.copyOf(testArray, arraySize);
+
             int[] mergeArray = Arrays.copyOf(testArray, arraySize);
             int[] heapArray = Arrays.copyOf(testArray, arraySize);
             int[] quickArray = Arrays.copyOf(testArray, arraySize);
             int[] countArray = Arrays.copyOf(testArray, arraySize);
 
-            testBubble(bubbleArray);
+            if (!disableBubble) {
+                int[] bubbleArray = Arrays.copyOf(testArray, arraySize);
+                testBubble(bubbleArray);
+            }
             testMerge(mergeArray);
             testHeap(heapArray);
             testQuick(quickArray);
@@ -64,7 +75,7 @@ public class BenchmarkSorting {
 
         System.out.println("================================================");
         System.out.println("Average time used in milliseconds to sort an array\n"
-                + "with " + arraySize + " items.");
+                + "with " + arraySize + " items in " + loops + " loops.");
         System.out.println("================================================");
         calculateAverages();
         printStats();
@@ -100,7 +111,9 @@ public class BenchmarkSorting {
     }
 
     private void printStats() {
-        System.out.println("Bubble Sort: " + bubbleAvg / 1000000);
+        if (!disableBubble) {
+            System.out.println("Bubble Sort: " + bubbleAvg / 1000000);
+        }
         System.out.println("Merge Sort: " + mergeAvg / 1000000);
         System.out.println("Heap Sort: " + heapAvg / 1000000);
         System.out.println("Quick Sort: " + quickAvg / 1000000);

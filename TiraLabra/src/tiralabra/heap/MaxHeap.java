@@ -102,8 +102,14 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         }
 
         if (currentSize == 0) {
-            heap[0] = e;
+            heap[1] = e;
             currentSize++;
+        } else {
+            if (comparator == null) {
+                insertWithoutComparator(e);
+            } else {
+//                insertWithComparator(e);
+            }
         }
         return true;
     }
@@ -113,11 +119,11 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         currentSize++;
         int i = currentSize;
 
-        while (i > 0) {
+        while (i > 1) {
             int parentIndex = getParentIndex(i);
             Object parent = heap[parentIndex];
 
-            if (node.compareTo((E) parent) >= 0) {
+            if (node.compareTo((E) parent) < 0) {
                 break;
             }
             heap[i] = parent;
@@ -126,12 +132,23 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         heap[i] = node;
     }
 
+    private void insertWithComparator(E e) {
+
+    }
+
     @Override
     public E remove() {
         if (currentSize == 0) {
             return null;
         }
-        E item = (E) heap[0];
+
+        E item = (E) heap[1];
+        heap[1] = heap[currentSize];
+        heap[currentSize] = null;
+
+        currentSize--;
+
+        heapify(1);
 
         return item;
     }

@@ -1,5 +1,6 @@
 package tiralabra.heap;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Comparator;
  */
 public abstract class AbstractHeap<E> implements Heap<E> {
 
-    protected static final int DEFAULT_CAPACITY = 10;
+    protected static final int DEFAULT_CAPACITY = 11;
     protected final Comparator<? super E> comparator;
     protected int currentSize;
     protected Object[] heap;
@@ -29,9 +30,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
                     + " 1");
         }
         this.comparator = comparator;
-        this.heap = new Object[initialCapacity];
+        this.heap = new Object[initialCapacity + 1];
         this.currentSize = 0;
-        this.capacity = initialCapacity;
+        this.capacity = initialCapacity + 1;
     }
 
     @Override
@@ -78,6 +79,11 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     @Override
     public boolean contains(Object o) {
         return indexOf(o) > -1;
+    }
+
+    @Override
+    public void printHeap() {
+        System.out.println(Arrays.toString(heap));
     }
 
     /**
@@ -138,6 +144,11 @@ public abstract class AbstractHeap<E> implements Heap<E> {
             }
         }
         return -1;
+    }
+
+    @Override
+    public Comparator getComparator() {
+        return comparator;
     }
 
 }

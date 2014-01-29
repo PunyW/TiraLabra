@@ -1,5 +1,7 @@
 package tiralabra.heap;
 
+import java.util.Comparator;
+
 /**
  * Interface for heap data structures, that provides fast access to the first
  * element of the heap.
@@ -69,4 +71,10 @@ public interface Heap<E> {
      */
     public boolean contains(E e);
 
+    /**
+     * @return comparator used for the heap
+     */
+    public Comparator getComparator();
+
+    public void printHeap();
 }

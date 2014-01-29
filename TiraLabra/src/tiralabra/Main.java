@@ -18,8 +18,13 @@ public class Main {
         Heap<Integer> heap = new MaxHeap<>(10);
         heap.insert(10);
         heap.insert(25);
+        heap.insert(44);
+        heap.insert(1);
 
-        System.out.println(heap.remove());
+        while (!heap.isEmpty()) {
+            System.out.println(heap.remove());
+        }
+
         BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
         benchmark.run(true);
         benchmark.setSize(10000);

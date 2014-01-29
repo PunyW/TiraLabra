@@ -1,5 +1,6 @@
 package tiralabra;
 
+import java.util.Arrays;
 import java.util.Random;
 import tiralabra.heap.Heap;
 import tiralabra.heap.MaxHeap;
@@ -14,8 +15,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Heap<Object> heap = new MaxHeap(0);
+        Heap<Integer> heap = new MaxHeap<>(10);
+        heap.insert(10);
+        heap.insert(25);
 
+        System.out.println(heap.remove());
         BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
         benchmark.run(true);
         benchmark.setSize(10000);

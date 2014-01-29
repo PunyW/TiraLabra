@@ -57,8 +57,8 @@ public class MaxHeap<E> extends AbstractHeap<E> {
     private void heapifyWithoutComparator(int nodeIndex) {
         /* To compare nodes with their natural ordering cast them into Comparable
          objects */
-        int leftIndex = leftChild(nodeIndex);
-        int rightIndex = rightChild(nodeIndex);
+        int leftIndex = getLeftChildIndex(nodeIndex);
+        int rightIndex = getRightChildIndex(nodeIndex);
         Comparable<? super E> left = (Comparable<? super E>) heap[leftIndex];
         Comparable<? super E> node = (Comparable<? super E>) heap[nodeIndex];
 
@@ -79,11 +79,51 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         }
     }
 
+    /**
+     * Insert element x into the heap, while maintaining the heap invariant by
+     * going up the tree until e is greater than or equal to its parent, or it
+     * is the root node.
+     *
+     * Same as above in the heapify comparator and non-comparator methods are
+     * split.
+     *
+     * @param e Element to be inserted into the heap.
+     * @return true if the element was inserted into the heap, otherwise false
+     * @throws NullPointerException if the specified element is null
+     */
     @Override
-    public void add(E node) {
+    public boolean insert(E e) {
+        if (e == null) {
+            throw new NullPointerException("Can't insert null element");
+        }
+
+        if (currentSize == capacity) {
+            return false;
+        }
+
+        if (currentSize == 0) {
+            heap[0] = e;
+            currentSize++;
+        }
+        return true;
+    }
+
+    private void insertWithoutComparator(E e) {
+        Comparable<? super E> node = (Comparable<? super E>) e;
         currentSize++;
         int i = currentSize;
 
+        while (i > 0) {
+            int parentIndex = getParentIndex(i);
+            Object parent = heap[parentIndex];
+
+            if (node.compareTo((E) parent) >= 0) {
+                break;
+            }
+            heap[i] = parent;
+            i = parentIndex;
+        }
+        heap[i] = node;
     }
 
     @Override

@@ -21,8 +21,9 @@ public interface Heap<E> {
      * Add an item to the heap. Override this method in heap implementation.
      *
      * @param e E to be inserted
+     * @return true if the element was inserted into the heap
      */
-    public void add(E e);
+    public boolean insert(E e);
 
     /**
      * Remove the first item of the heap, in max-heap the item with maximum

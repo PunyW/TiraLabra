@@ -21,6 +21,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      *
      * @param comparator custom comparator for heap
      * @param initialCapacity how many items the heap will take
+     * @throws IllegalArgumentException if the initial capacity is under 1
      */
     public AbstractHeap(Comparator<? super E> comparator, int initialCapacity) {
         if (initialCapacity < 1) {
@@ -39,7 +40,8 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     }
 
     @Override
-    public void add(E e) {
+    public boolean insert(E e) {
+        return false;
     }
 
     @Override
@@ -84,7 +86,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      * @param nodeIndex which nodes left child is being inspected
      * @return index of nodes left child
      */
-    protected int leftChild(int nodeIndex) {
+    protected int getLeftChildIndex(int nodeIndex) {
         return nodeIndex * 2;
     }
 
@@ -94,17 +96,17 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      * @param nodeIndex which nodes right child is being inspected
      * @return index of nodes right child
      */
-    protected int rightChild(int nodeIndex) {
+    protected int getRightChildIndex(int nodeIndex) {
         return nodeIndex * 2 + 1;
     }
 
     /**
-     * Returns the index of the nodes parent
+     * Returns the index of the nodes getParentIndex
      *
-     * @param nodeIndex which nodes parent is being inspected
-     * @return index of the parent node
+     * @param nodeIndex which nodes getParentIndex is being inspected
+     * @return index of the getParentIndex node
      */
-    protected int parent(int nodeIndex) {
+    protected int getParentIndex(int nodeIndex) {
         return nodeIndex / 2;
     }
 

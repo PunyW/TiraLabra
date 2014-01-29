@@ -31,16 +31,51 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         super(comparator, initialCapacity);
     }
 
+    /**
+     * Check that heap invariant is met at the given index. Method checks that
+     * node isn't smaller than either of it's children, if it is swap it with
+     * it's children and call heapify at the child's index.
+     *
+     * To make the code cleaner heapify with comparator has been split from
+     * heapify without comparator even though both are otherwise identical.
+     *
+     * @param nodeIndex inspected nodes index
+     */
     @Override
-    public void heapify(int index) {
-        int left = leftChild(index);
-        int right = rightChild(index);
-        int largest;
+    public void heapify(int nodeIndex) {
+        if (comparator != null) {
+            heapifyWithComparator(nodeIndex);
+        } else {
+            heapifyWithoutComparator(nodeIndex);
+        }
+    }
 
-        if (right < currentSize) {
+    private void heapifyWithComparator(int nodeIndex) {
 
-        } else if (left == currentSize - 1) {
-            swap(index, left);
+    }
+
+    private void heapifyWithoutComparator(int nodeIndex) {
+        /* To compare nodes with their natural ordering cast them into Comparable
+         objects */
+        int leftIndex = leftChild(nodeIndex);
+        int rightIndex = rightChild(nodeIndex);
+        Comparable<? super E> left = (Comparable<? super E>) heap[leftIndex];
+        Comparable<? super E> node = (Comparable<? super E>) heap[nodeIndex];
+
+        int largestIndex;
+
+        if (rightIndex <= currentSize) {
+            if (left.compareTo((E) heap[rightIndex]) > 0) {
+                largestIndex = leftIndex;
+            } else {
+                largestIndex = rightIndex;
+            }
+            if (node.compareTo((E) heap[largestIndex]) < 0) {
+                swap(nodeIndex, largestIndex);
+                heapify(largestIndex);
+            }
+        } else if (leftIndex == currentSize && node.compareTo((E) left) < 0) {
+            swap(nodeIndex, leftIndex);
         }
     }
 

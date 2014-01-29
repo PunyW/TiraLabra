@@ -36,9 +36,9 @@ public interface Heap<E> {
      * Check that the heap conditions are met at the index node, if they aren't
      * fix it. Override this method in heap implementation.
      *
-     * @param index The node which heap condition is to be inspected
+     * @param nodeIndex The node which heap condition is to be inspected
      */
-    public void heapify(int index);
+    public void heapify(int nodeIndex);
 
     /**
      *
@@ -58,5 +58,14 @@ public interface Heap<E> {
      * @return true if the heap is full, otherwise false.
      */
     public boolean full();
+
+    /**
+     * Check if given element is contained in the heap.
+     *
+     * @param e inspected element
+     * @return true if the inspected element is contained within the heap,
+     * otherwise returns false
+     */
+    public boolean contains(E e);
 
 }

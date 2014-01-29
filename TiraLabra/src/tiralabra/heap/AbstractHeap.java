@@ -47,11 +47,12 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         if (currentSize == 0) {
             return null;
         }
+
         return (E) heap[0];
     }
 
     @Override
-    public void heapify(int index) {
+    public void heapify(int nodeIndex) {
     }
 
     @Override
@@ -70,6 +71,11 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     @Override
     public boolean full() {
         return currentSize == capacity;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return indexOf(o) > -1;
     }
 
     /**

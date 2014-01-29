@@ -42,7 +42,32 @@ public abstract class AbstractHeap<E> implements Heap<E> {
 
     @Override
     public boolean insert(E e) {
-        return false;
+        if (e == null) {
+            throw new NullPointerException("Can't insert null element");
+        }
+        if (currentSize >= capacity) {
+            return false;
+        }
+
+        if (currentSize == 0) {
+            heap[1] = e;
+            currentSize++;
+        } else {
+            if (comparator == null) {
+                insertWithoutComparator(e);
+            } else {
+                insertWithComparator(e);
+            }
+        }
+        return true;
+    }
+
+    protected void insertWithoutComparator(E e) {
+
+    }
+
+    protected void insertWithComparator(E e) {
+
     }
 
     @Override
@@ -54,8 +79,29 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         return (E) heap[0];
     }
 
+    /**
+     * Check that heap invariant is met at the given index.
+     *
+     * To make the code cleaner heapify with comparator has been split from
+     * heapify without comparator even though both are otherwise identical.
+     *
+     * @param nodeIndex inspected nodes index
+     */
     @Override
     public void heapify(int nodeIndex) {
+        if (comparator != null) {
+            heapifyWithComparator(nodeIndex);
+        } else {
+            heapifyWithoutComparator(nodeIndex);
+        }
+    }
+
+    protected void heapifyWithComparator(int nodeIndex) {
+
+    }
+
+    protected void heapifyWithoutComparator(int nodeIndex) {
+
     }
 
     @Override

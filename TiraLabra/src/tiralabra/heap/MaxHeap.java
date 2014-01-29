@@ -31,30 +31,18 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         super(comparator, initialCapacity);
     }
 
-    /**
-     * Check that heap invariant is met at the given index. Method checks that
-     * node isn't smaller than either of it's children, if it is swap it with
-     * it's children and call heapify at the child's index.
-     *
-     * To make the code cleaner heapify with comparator has been split from
-     * heapify without comparator even though both are otherwise identical.
-     *
-     * @param nodeIndex inspected nodes index
-     */
     @Override
     public void heapify(int nodeIndex) {
-        if (comparator != null) {
-            heapifyWithComparator(nodeIndex);
-        } else {
-            heapifyWithoutComparator(nodeIndex);
-        }
+        super.heapify(nodeIndex);
     }
 
-    private void heapifyWithComparator(int nodeIndex) {
+    @Override
+    protected void heapifyWithComparator(int nodeIndex) {
 
     }
 
-    private void heapifyWithoutComparator(int nodeIndex) {
+    @Override
+    protected void heapifyWithoutComparator(int nodeIndex) {
         /* To compare nodes with their natural ordering cast them into Comparable
          objects */
         int leftIndex = getLeftChildIndex(nodeIndex);
@@ -93,34 +81,18 @@ public class MaxHeap<E> extends AbstractHeap<E> {
      */
     @Override
     public boolean insert(E e) {
-        if (e == null) {
-            throw new NullPointerException("Can't insert null element");
-        }
-
-        if (currentSize == capacity) {
-            return false;
-        }
-
-        if (currentSize == 0) {
-            heap[1] = e;
-            currentSize++;
-        } else {
-            if (comparator == null) {
-                insertWithoutComparator(e);
-            } else {
-//                insertWithComparator(e);
-            }
-        }
-        return true;
+        return super.insert(e);
     }
 
-    private void insertWithoutComparator(E e) {
+    @Override
+    protected void insertWithoutComparator(E e) {
         Comparable<? super E> node = (Comparable<? super E>) e;
+
         currentSize++;
         int i = currentSize;
+        int parentIndex = getParentIndex(i);
 
         while (i > 1) {
-            int parentIndex = getParentIndex(i);
             Object parent = heap[parentIndex];
 
             if (node.compareTo((E) parent) < 0) {
@@ -132,7 +104,8 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         heap[i] = node;
     }
 
-    private void insertWithComparator(E e) {
+    @Override
+    protected void insertWithComparator(E e) {
 
     }
 

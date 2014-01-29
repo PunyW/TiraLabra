@@ -67,18 +67,7 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         }
     }
 
-    /**
-     * Insert element x into the heap, while maintaining the heap invariant by
-     * going up the tree until e is greater than or equal to its parent, or it
-     * is the root node.
-     *
-     * Same as above in the heapify comparator and non-comparator methods are
-     * split.
-     *
-     * @param e Element to be inserted into the heap.
-     * @return true if the element was inserted into the heap, otherwise false
-     * @throws NullPointerException if the specified element is null
-     */
+    
     @Override
     public boolean insert(E e) {
         return super.insert(e);

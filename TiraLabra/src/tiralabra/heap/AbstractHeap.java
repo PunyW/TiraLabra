@@ -40,6 +40,56 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         return currentSize == 0;
     }
 
+    /**
+     * Check that heap invariant is met at the given index.
+     *
+     * To make the code cleaner heapify with comparator has been split from
+     * heapify without comparator even though both are otherwise identical. Also
+     * both of these methods should be overriden in the final implementation of
+     * a heap.
+     *
+     * @param nodeIndex inspected nodes index
+     */
+    @Override
+    public void heapify(int nodeIndex) {
+        if (comparator != null) {
+            heapifyWithComparator(nodeIndex);
+        } else {
+            heapifyWithoutComparator(nodeIndex);
+        }
+    }
+
+    /**
+     * OVERRIDE THIS METHOD
+     *
+     * @param nodeIndex which node is inspected
+     */
+    protected void heapifyWithComparator(int nodeIndex) {
+
+    }
+
+    /**
+     * OVERRIDE THIS METHOD
+     *
+     * @param nodeIndex which node is inspected
+     */
+    protected void heapifyWithoutComparator(int nodeIndex) {
+
+    }
+
+    /**
+     * Insert element x into the heap, while maintaining the heap invariant by
+     * going up the tree to check the nodes parent according to the heap that is
+     * being implemented.
+     *
+     * Same as above in the heapify comparator and non-comparator methods are
+     * split. And both of these methods should be overriden in the
+     * implementation of the heap class.
+     *
+     * @param e Element to be inserted into the heap.
+     * @return true if the element was inserted into the heap, otherwise false
+     * @throws NullPointerException if the specified element is null
+     */
     @Override
     public boolean insert(E e) {
         if (e == null) {
@@ -62,10 +112,20 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         return true;
     }
 
+    /**
+     * OVERRIDE THIS METHOD
+     * 
+     * @param e node that is being inserted
+     */
     protected void insertWithoutComparator(E e) {
 
     }
 
+    /**
+     * OVERRIDE THIS METHOD
+     * 
+     * @param e node that is being inserted
+     */
     protected void insertWithComparator(E e) {
 
     }
@@ -77,31 +137,6 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         }
 
         return (E) heap[0];
-    }
-
-    /**
-     * Check that heap invariant is met at the given index.
-     *
-     * To make the code cleaner heapify with comparator has been split from
-     * heapify without comparator even though both are otherwise identical.
-     *
-     * @param nodeIndex inspected nodes index
-     */
-    @Override
-    public void heapify(int nodeIndex) {
-        if (comparator != null) {
-            heapifyWithComparator(nodeIndex);
-        } else {
-            heapifyWithoutComparator(nodeIndex);
-        }
-    }
-
-    protected void heapifyWithComparator(int nodeIndex) {
-
-    }
-
-    protected void heapifyWithoutComparator(int nodeIndex) {
-
     }
 
     @Override

@@ -5,10 +5,10 @@ package tiralabra.heap;
  * element of the heap.
  *
  * @author Joel
- * @param <T> Type of elements contained in this heap
+ * @param <E> Type of elements contained in this heap
  *
  */
-public interface Heap<T> {
+public interface Heap<E> {
 
     /**
      * Check if the heap is empty.
@@ -22,7 +22,7 @@ public interface Heap<T> {
      *
      * @param e E to be inserted
      */
-    public void add(T e);
+    public void add(E e);
 
     /**
      * Remove the first item of the heap, in max-heap the item with maximum
@@ -30,7 +30,7 @@ public interface Heap<T> {
      *
      * @return First item of the heap
      */
-    public T remove();
+    public E remove();
 
     /**
      * Check that the heap conditions are met at the index node, if they aren't
@@ -39,10 +39,10 @@ public interface Heap<T> {
      * @param index The node which heap condition is to be inspected
      */
     public void heapify(int index);
-    
+
     /**
-     * 
-     * @return how many elements there is currently in the heap 
+     *
+     * @return how many elements there is currently in the heap
      */
     public int size();
 
@@ -51,5 +51,12 @@ public interface Heap<T> {
      * call
      */
     public void clear();
+
+    /**
+     * Check if the heap is full.
+     *
+     * @return true if the heap is full, otherwise false.
+     */
+    public boolean full();
 
 }

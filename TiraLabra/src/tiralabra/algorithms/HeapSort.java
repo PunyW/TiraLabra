@@ -83,21 +83,21 @@ public class HeapSort {
     /**
      * Get the index of nodes left child
      *
-     * @param index nodes index
+     * @param nodeIndex nodes index
      * @return index of the nodes left child
      */
-    private static int leftChild(int index) {
-        return index * 2;
+    private static int leftChild(int nodeIndex) {
+        return nodeIndex * 2;
     }
 
     /**
      * Get the index of nodes right child
      *
-     * @param index nodes index
+     * @param nodeIndex nodes index
      * @return index of the nodes right child
      */
-    private static int rightChild(int index) {
-        return index * 2 + 1;
+    private static int rightChild(int nodeIndex) {
+        return nodeIndex * 2 + 1;
     }
 
 }

@@ -6,9 +6,7 @@
 package tiralabra.heap;
 
 import java.util.Random;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
@@ -53,8 +51,32 @@ public class MaxHeapTest {
     @Test
     public void constructorThrowsIllegalArgumentExceptionWithSizeUnderOne() {
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("Initial capacity cannot be under");
+        exception.expectMessage("Initial capacity cannot be under 1");
         Heap<Integer> maxHeap = new MaxHeap<>(0);
+    }
+
+    @Test
+    public void testRemove() {
+        Heap<Integer> maxHeap = new MaxHeap<>(2);
+        maxHeap.insert(10);
+        maxHeap.insert(25);
+        assertEquals(25, (int) maxHeap.remove());
+        assertEquals(10, (int) maxHeap.remove());
+
+    }
+
+    @Test
+    public void testRandomHeap() {
+        int prev = heap.remove();
+        while (!heap.isEmpty()) {
+            int current = heap.remove();
+            if (prev < current) {
+                fail("Items that are popped first should be the largest ones, "
+                        + "now it wasn't so: current items value - "
+                        + current + " is larger than previous item - " + prev);
+            }
+        }
+        assertTrue(true);
     }
 
     private Heap<Integer> randomizeHeap(int size) {
@@ -70,4 +92,5 @@ public class MaxHeapTest {
 
         return heap;
     }
+
 }

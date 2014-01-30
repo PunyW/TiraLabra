@@ -11,7 +11,7 @@ import java.util.Comparator;
  */
 public abstract class AbstractHeap<E> implements Heap<E> {
 
-    protected static final int DEFAULT_CAPACITY = 11;
+    protected static final int DEFAULT_CAPACITY = 10;
     protected final Comparator<? super E> comparator;
     protected int currentSize;
     protected Object[] heap;
@@ -30,9 +30,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
                     + " 1");
         }
         this.comparator = comparator;
-        this.heap = new Object[initialCapacity + 1];
+        this.heap = new Object[initialCapacity];
         this.currentSize = 0;
-        this.capacity = initialCapacity + 1;
+        this.capacity = initialCapacity;
     }
 
     @Override
@@ -100,7 +100,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         }
 
         if (currentSize == 0) {
-            heap[1] = e;
+            heap[0] = e;
             currentSize++;
         } else {
             if (comparator == null) {
@@ -114,7 +114,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
 
     /**
      * OVERRIDE THIS METHOD
-     * 
+     *
      * @param e node that is being inserted
      */
     protected void insertWithoutComparator(E e) {
@@ -123,7 +123,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
 
     /**
      * OVERRIDE THIS METHOD
-     * 
+     *
      * @param e node that is being inserted
      */
     protected void insertWithComparator(E e) {

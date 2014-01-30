@@ -15,20 +15,17 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Heap<Integer> heap = new MaxHeap<>(10);
-        heap.insert(10);
-        heap.insert(25);
-        heap.insert(44);
-        heap.insert(1);
+        Heap<Integer> heap = randomizeHeap(10);
 
+        System.out.println("Täällä");
         while (!heap.isEmpty()) {
-            System.out.println(heap.remove());
+            System.out.println("Removed: " + heap.remove());
         }
 
-        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
-        benchmark.run(true);
-        benchmark.setSize(10000);
-        benchmark.run(false);
+//        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
+//        benchmark.run(true);
+//        benchmark.setSize(10000);
+//        benchmark.run(false);
 
 //        long startTime = System.nanoTime();
 //        int[] test = randomizeArray(100);
@@ -46,6 +43,17 @@ public class Main {
             testArray[i] = random.nextInt(size);
         }
         return testArray;
+    }
+
+    private static Heap<Integer> randomizeHeap(int size) {
+        Heap<Integer> heap = new MaxHeap<>(size);
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            heap.insert(random.nextInt(size * 2) + 1);
+            heap.printHeap();
+        }
+
+        return heap;
     }
 
 }

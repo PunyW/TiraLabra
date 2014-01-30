@@ -17,7 +17,8 @@ public class Main {
     public static void main(String[] args) {
         Heap<Integer> heap = randomizeHeap(10);
 
-        System.out.println("Täällä");
+        heap.printHeap();
+
         while (!heap.isEmpty()) {
             System.out.println("Removed: " + heap.remove());
         }
@@ -26,7 +27,6 @@ public class Main {
 //        benchmark.run(true);
 //        benchmark.setSize(10000);
 //        benchmark.run(false);
-
 //        long startTime = System.nanoTime();
 //        int[] test = randomizeArray(100);
 //        BubbleSort.sort(test);
@@ -49,8 +49,11 @@ public class Main {
         Heap<Integer> heap = new MaxHeap<>(size);
         Random random = new Random();
         for (int i = 0; i < size; i++) {
-            heap.insert(random.nextInt(size * 2) + 1);
-            heap.printHeap();
+            int rnd = random.nextInt(100);
+            while (heap.contains(rnd)) {
+                rnd = random.nextInt(100);
+            }
+            heap.insert(rnd);
         }
 
         return heap;

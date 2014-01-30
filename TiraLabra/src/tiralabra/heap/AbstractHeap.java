@@ -89,6 +89,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      * @param e Element to be inserted into the heap.
      * @return true if the element was inserted into the heap, otherwise false
      * @throws NullPointerException if the specified element is null
+     * @throws NullPointerException
      */
     @Override
     public boolean insert(E e) {

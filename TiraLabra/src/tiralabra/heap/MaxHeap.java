@@ -43,26 +43,18 @@ public class MaxHeap<E> extends AbstractHeap<E> {
 
     @Override
     protected void heapifyWithoutComparator(int nodeIndex) {
-        if (currentSize == 1) {
-            return;
-        }
-        /* To compare nodes with their natural ordering cast them into Comparable
-         objects */
-        int leftIndex;
-        int rightIndex;
 
-        if (nodeIndex == 0) {
-            leftIndex = 1;
-            rightIndex = 2;
-        } else {
-            leftIndex = getLeftChildIndex(nodeIndex);
-            rightIndex = getRightChildIndex(nodeIndex);
-        }
+        int leftIndex = getLeftChildIndex(nodeIndex);
+        int rightIndex = getRightChildIndex(nodeIndex);
 
-        if (leftIndex > capacity || rightIndex >= capacity) {
+        if (rightIndex >= capacity) {
             return;
         }
 
+        /* 
+         To compare nodes with their natural ordering cast them into Comparable
+         objects 
+         */
         Comparable<? super E> left = (Comparable<? super E>) heap[leftIndex];
         Comparable<? super E> node = (Comparable<? super E>) heap[nodeIndex];
 

@@ -52,6 +52,14 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      */
     @Override
     public void heapify(int nodeIndex) {
+        /* 
+         If current size is one, the only node is the root so heapify it's not
+         necessary to call heapify 
+         */
+        if (currentSize == 1) {
+            return;
+        }
+
         if (comparator != null) {
             heapifyWithComparator(nodeIndex);
         } else {
@@ -175,6 +183,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      * @return index of nodes left child
      */
     protected int getLeftChildIndex(int nodeIndex) {
+        if (nodeIndex == 0) {
+            return 1;
+        }
         return nodeIndex * 2;
     }
 
@@ -185,6 +196,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
      * @return index of nodes right child
      */
     protected int getRightChildIndex(int nodeIndex) {
+        if (nodeIndex == 0) {
+            return 2;
+        }
         return nodeIndex * 2 + 1;
     }
 

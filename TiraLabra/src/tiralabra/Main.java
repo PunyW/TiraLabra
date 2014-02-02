@@ -1,8 +1,6 @@
 package tiralabra;
 
 import java.util.Random;
-import testitem.Item;
-import testitem.MyComparator;
 import tiralabra.heap.Heap;
 import tiralabra.heap.MaxHeap;
 
@@ -17,7 +15,6 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        testMaxHeapComparator();
 //        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
 //        benchmark.run(true);
 //        benchmark.setSize(10000);
@@ -31,7 +28,7 @@ public class Main {
 //        System.out.println(Arrays.toString(test));
     }
 
-    private static void testMaxHeapComparable() {
+    private static void testMaxHeap() {
         Heap<Integer> heap = randomizeHeap(10);
 
         while (!heap.isEmpty()) {
@@ -40,19 +37,6 @@ public class Main {
         heap.printHeap();
 
         while (!heap.isEmpty()) {
-            System.out.println("Removed: " + heap.remove());
-        }
-    }
-
-    private static void testMaxHeapComparator() {
-        Heap<Item> heap = new MaxHeap<>(new MyComparator(), 10);
-        for (int i = 0; i < 10; i++) {
-            heap.insert(new Item());
-        }
-
-        heap.printHeap();
-        
-        while(!heap.isEmpty()) {
             System.out.println("Removed: " + heap.remove());
         }
     }

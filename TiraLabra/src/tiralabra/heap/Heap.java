@@ -28,6 +28,14 @@ public interface Heap<E> {
     public boolean insert(E e);
 
     /**
+     * Calls insert
+     *
+     * @param e element to be inserted
+     * @return true if the element was inserted into the heap
+     */
+    public boolean add(E e);
+
+    /**
      * Remove the first item of the heap, in max-heap the item with maximum
      * value and in min-heap the item with the minimum value.
      *
@@ -70,11 +78,6 @@ public interface Heap<E> {
      * otherwise returns false
      */
     public boolean contains(E e);
-
-    /**
-     * @return comparator used for the heap
-     */
-    public Comparator getComparator();
 
     public void printHeap();
 }

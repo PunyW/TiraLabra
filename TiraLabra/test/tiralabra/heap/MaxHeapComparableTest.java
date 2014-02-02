@@ -28,7 +28,7 @@ public class MaxHeapComparableTest {
 
     @Before
     public void setUp() {
-        heap = randomizeHeap(10);
+        heap = randomizeHeap(10000);
     }
 
     @Test
@@ -77,7 +77,6 @@ public class MaxHeapComparableTest {
     @Test
     public void testRandomHeap() {
         int prev = heap.remove();
-        testSize(9);
         while (!heap.isEmpty()) {
             int current = heap.remove();
             if (prev < current) {
@@ -94,9 +93,9 @@ public class MaxHeapComparableTest {
         heap = new MaxHeap<>(size);
         Random random = new Random();
         for (int i = 0; i < size; i++) {
-            int rnd = random.nextInt(100);
+            int rnd = random.nextInt(size * 2);
             while (heap.contains(rnd)) {
-                rnd = random.nextInt(100);
+                rnd = random.nextInt(size * 2);
             }
             heap.insert(rnd);
         }

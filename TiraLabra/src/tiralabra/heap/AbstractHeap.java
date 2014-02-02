@@ -9,10 +9,9 @@ import java.util.Comparator;
  * @author Joel
  * @param <E> Type of elements contained in this heap
  */
-public abstract class AbstractHeap<E> implements Heap<E> {
+public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
 
     protected static final int DEFAULT_CAPACITY = 10;
-    protected final Comparator<? super E> comparator;
     protected int currentSize;
     protected Object[] heap;
     protected int capacity;
@@ -20,16 +19,14 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     /**
      * Constructor for the heap.
      *
-     * @param comparator custom comparator for heap
      * @param initialCapacity how many items the heap will take
      * @throws IllegalArgumentException if the initial capacity is under 1
      */
-    public AbstractHeap(Comparator<? super E> comparator, int initialCapacity) {
+    public AbstractHeap(int initialCapacity) {
         if (initialCapacity < 1) {
             throw new IllegalArgumentException("Initial capacity cannot be under"
                     + " 1");
         }
-        this.comparator = comparator;
         this.heap = new Object[initialCapacity];
         this.currentSize = 0;
         this.capacity = initialCapacity;
@@ -60,14 +57,8 @@ public abstract class AbstractHeap<E> implements Heap<E> {
             return;
         }
 
-        if (comparator != null) {
-            heapifyWithComparator(nodeIndex);
-        } else {
-            heapifyWithoutComparator(nodeIndex);
-        }
+        heapifyWithoutComparator(nodeIndex);
     }
-
-    protected abstract void heapifyWithComparator(int nodeIndex);
 
     protected abstract void heapifyWithoutComparator(int nodeIndex);
 
@@ -98,18 +89,17 @@ public abstract class AbstractHeap<E> implements Heap<E> {
             heap[0] = e;
             currentSize++;
         } else {
-            if (comparator == null) {
-                insertWithoutComparator(e);
-            } else {
-                insertWithComparator(e);
-            }
+            insertWithoutComparator(e);
         }
         return true;
     }
 
-    protected abstract void insertWithoutComparator(E e);
+    @Override
+    public boolean add(E e) {
+        return insert(e);
+    }
 
-    protected abstract void insertWithComparator(E e);
+    protected abstract void insertWithoutComparator(E e);
 
     @Override
     public E remove() {
@@ -148,8 +138,8 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     }
 
     @Override
-    public boolean contains(Object o) {
-        return indexOf(o) > -1;
+    public boolean contains(E e) {
+        return indexOf(e) > -1;
     }
 
     @Override
@@ -159,14 +149,14 @@ public abstract class AbstractHeap<E> implements Heap<E> {
 
     /**
      * Grow the capacity of the heap when the old capacity becomes too small. If
-     * the old capacity is under 20, grow size by 10, else double the size.
+     * the old capacity is under 20, grow size by 10, else grow by 50%.
      */
     protected void grow() {
         int newCapacity;
         if (capacity < 20) {
             newCapacity = capacity + 10;
         } else {
-            newCapacity = capacity * 2;
+            newCapacity = capacity + capacity / 2;
         }
 
         int maxArraySize = Integer.MAX_VALUE - 8;
@@ -174,6 +164,8 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         if (newCapacity > maxArraySize) {
             newCapacity = maxArraySize;
         }
+
+        capacity = newCapacity;
 
         heap = Arrays.copyOf(heap, newCapacity);
     }
@@ -243,10 +235,4 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         }
         return -1;
     }
-
-    @Override
-    public Comparator getComparator() {
-        return comparator;
-    }
-
 }

@@ -1,7 +1,8 @@
 package tiralabra;
 
-import java.util.Arrays;
 import java.util.Random;
+import testitem.Item;
+import testitem.MyComparator;
 import tiralabra.heap.Heap;
 import tiralabra.heap.MaxHeap;
 
@@ -15,14 +16,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Heap<Integer> heap = randomizeHeap(10);
 
-        heap.printHeap();
-
-        while (!heap.isEmpty()) {
-            System.out.println("Removed: " + heap.remove());
-        }
-
+        testMaxHeapComparator();
 //        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
 //        benchmark.run(true);
 //        benchmark.setSize(10000);
@@ -34,6 +29,32 @@ public class Main {
 //        long elapsed = stopTime - startTime;
 //        System.out.println("Elapsed: " + elapsed / 1000000);
 //        System.out.println(Arrays.toString(test));
+    }
+
+    private static void testMaxHeapComparable() {
+        Heap<Integer> heap = randomizeHeap(10);
+
+        while (!heap.isEmpty()) {
+            System.out.println("Removed: " + heap.remove());
+        }
+        heap.printHeap();
+
+        while (!heap.isEmpty()) {
+            System.out.println("Removed: " + heap.remove());
+        }
+    }
+
+    private static void testMaxHeapComparator() {
+        Heap<Item> heap = new MaxHeap<>(new MyComparator(), 10);
+        for (int i = 0; i < 10; i++) {
+            heap.insert(new Item());
+        }
+
+        heap.printHeap();
+        
+        while(!heap.isEmpty()) {
+            System.out.println("Removed: " + heap.remove());
+        }
     }
 
     private static int[] randomizeArray(int size) {

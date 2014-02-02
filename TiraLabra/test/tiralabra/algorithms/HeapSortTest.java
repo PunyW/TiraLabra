@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
 public class HeapSortTest {
 
     private int[] testArray;
-    private final int SIZE = 1000;
-    private final int MAX = 100000;
+    private final int SIZE = 10000;
+    private final int MAX = 10000000;
 
     public HeapSortTest() {
     }
@@ -45,7 +45,7 @@ public class HeapSortTest {
 
     @Test
     public void worksRepeadetly() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             randomizeArray();
             HeapSort.sort(testArray);
             checkArray();

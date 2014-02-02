@@ -117,7 +117,16 @@ public abstract class AbstractHeap<E> implements Heap<E> {
             return null;
         }
 
-        return (E) heap[0];
+        E item = (E) heap[0];
+
+        heap[0] = heap[currentSize - 1];
+        heap[currentSize - 1] = null;
+
+        currentSize--;
+
+        heapify(0);
+
+        return item;
     }
 
     @Override

@@ -145,22 +145,22 @@ public class MaxHeap<E> extends AbstractHeap<E> {
         heap[i] = e;
     }
 
-    @Override
-    public E remove() {
-        if (currentSize == 0) {
-            return null;
-        }
-
-        E item = (E) heap[0];
-
-        heap[0] = heap[currentSize - 1];
-        heap[currentSize - 1] = null;
-
-        currentSize--;
-
-        heapify(0);
-
-        return item;
-    }
+//    @Override
+//    public E remove() {
+//        if (currentSize == 0) {
+//            return null;
+//        }
+//
+//        E item = (E) heap[0];
+//
+//        heap[0] = heap[currentSize - 1];
+//        heap[currentSize - 1] = null;
+//
+//        currentSize--;
+//
+//        heapify(0);
+//
+//        return item;
+//    }
 
 }

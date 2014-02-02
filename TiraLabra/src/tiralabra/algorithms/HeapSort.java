@@ -62,8 +62,6 @@ public class HeapSort {
                 swap(A, index, largest);
                 heapify(A, largest);
             }
-        } else if (left == A.length - 1 && A[index] < A[left]) {
-            swap(A, index, left);
         }
     }
 

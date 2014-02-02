@@ -16,11 +16,11 @@ import org.junit.rules.ExpectedException;
  *
  * @author Joel
  */
-public class MaxHeapTest {
+public class MaxHeapComparableTest {
 
     private Heap<Integer> heap;
 
-    public MaxHeapTest() {
+    public MaxHeapComparableTest() {
     }
 
     @Rule
@@ -37,6 +37,7 @@ public class MaxHeapTest {
         assertEquals(true, maxHeap.insert(10));
         assertEquals(true, maxHeap.insert(11));
         assertEquals(true, maxHeap.insert(12));
+        testSize(3, maxHeap);
     }
 
     @Test
@@ -44,6 +45,7 @@ public class MaxHeapTest {
         Heap<Integer> maxHeap = new MaxHeap<>(1);
         assertEquals(true, maxHeap.insert(10));
         assertEquals(true, maxHeap.insert(10));
+        testSize(2, maxHeap);
     }
 
     @Test
@@ -52,6 +54,7 @@ public class MaxHeapTest {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Can't insert null element");
         maxHeap.insert(null);
+        testSize(0, maxHeap);
     }
 
     @Test
@@ -68,12 +71,13 @@ public class MaxHeapTest {
         maxHeap.insert(25);
         assertEquals(25, (int) maxHeap.remove());
         assertEquals(10, (int) maxHeap.remove());
-
+        testSize(0, maxHeap);
     }
 
     @Test
     public void testRandomHeap() {
         int prev = heap.remove();
+        testSize(9);
         while (!heap.isEmpty()) {
             int current = heap.remove();
             if (prev < current) {
@@ -83,6 +87,7 @@ public class MaxHeapTest {
             }
         }
         assertTrue(true);
+        testSize(0);
     }
 
     private Heap<Integer> randomizeHeap(int size) {

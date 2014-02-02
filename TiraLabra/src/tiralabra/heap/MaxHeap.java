@@ -1,7 +1,5 @@
 package tiralabra.heap;
 
-import java.util.Comparator;
-
 /**
  *
  * @author Joel
@@ -28,7 +26,7 @@ public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
     }
 
     @Override
-    protected void heapifyWithoutComparator(int nodeIndex) {
+    protected void heapHeapify(int nodeIndex) {
 
         int leftIndex = getLeftChildIndex(nodeIndex);
         int rightIndex = getRightChildIndex(nodeIndex);
@@ -62,7 +60,7 @@ public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
     }
 
     @Override
-    protected void insertWithoutComparator(E e) {
+    protected void heapInsert(E e) {
         Comparable<? super E> node = (Comparable<? super E>) e;
 
         int i = currentSize;

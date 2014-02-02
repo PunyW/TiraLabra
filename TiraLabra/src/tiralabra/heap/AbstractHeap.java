@@ -1,7 +1,6 @@
 package tiralabra.heap;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Abstract heap structure for implementing heaps
@@ -40,11 +39,6 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
     /**
      * Check that heap invariant is met at the given index.
      *
-     * To make the code cleaner heapify with comparator has been split from
-     * heapify without comparator even though both are otherwise identical. Also
-     * both of these methods should be overriden in the final implementation of
-     * a heap.
-     *
      * @param nodeIndex inspected nodes index
      */
     @Override
@@ -57,19 +51,16 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
             return;
         }
 
-        heapifyWithoutComparator(nodeIndex);
+        heapHeapify(nodeIndex);
     }
 
-    protected abstract void heapifyWithoutComparator(int nodeIndex);
+    protected abstract void heapHeapify(int nodeIndex);
 
     /**
      * Insert element x into the heap, while maintaining the heap invariant by
      * going up the tree to check the nodes parent according to the heap that is
      * being implemented.
      *
-     * Same as above in the heapify comparator and non-comparator methods are
-     * split. And both of these methods should be overriden in the
-     * implementation of the heap class.
      *
      * @param e Element to be inserted into the heap.
      * @return true if the element was inserted into the heap, otherwise false
@@ -81,7 +72,7 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
         if (e == null) {
             throw new NullPointerException("Can't insert null element");
         }
-        if (currentSize >= capacity) {
+        if (full()) {
             grow();
         }
 
@@ -89,7 +80,7 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
             heap[0] = e;
             currentSize++;
         } else {
-            insertWithoutComparator(e);
+            heapInsert(e);
         }
         return true;
     }
@@ -99,7 +90,7 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
         return insert(e);
     }
 
-    protected abstract void insertWithoutComparator(E e);
+    protected abstract void heapInsert(E e);
 
     @Override
     public E remove() {

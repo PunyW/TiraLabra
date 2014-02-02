@@ -16,11 +16,11 @@ import org.junit.rules.ExpectedException;
  *
  * @author Joel
  */
-public class MaxHeapComparableTest {
+public class MaxHeapTest {
 
     private Heap<Integer> heap;
 
-    public MaxHeapComparableTest() {
+    public MaxHeapTest() {
     }
 
     @Rule
@@ -87,6 +87,22 @@ public class MaxHeapComparableTest {
         }
         assertTrue(true);
         testSize(0);
+    }
+
+    @Test
+    public void testGrow() {
+        Heap<Integer> maxHeap = new MaxHeap<>(2);
+        for (int i = 0; i < 100; i++) {
+            maxHeap.add(i);
+        }
+        testSize(100, maxHeap);
+    }
+    
+    @Test
+    public void clearWorks() {
+        heap.clear();
+        testSize(0);
+        assertEquals(null, heap.remove());
     }
 
     private Heap<Integer> randomizeHeap(int size) {

@@ -37,7 +37,13 @@ public class MaxHeapTest {
         assertEquals(true, maxHeap.insert(10));
         assertEquals(true, maxHeap.insert(11));
         assertEquals(true, maxHeap.insert(12));
-        assertEquals(false, maxHeap.insert(12));
+    }
+
+    @Test
+    public void insertGrowsSizeIfCapacityReached() {
+        Heap<Integer> maxHeap = new MaxHeap<>(1);
+        assertEquals(true, maxHeap.insert(10));
+        assertEquals(true, maxHeap.insert(10));
     }
 
     @Test
@@ -91,6 +97,14 @@ public class MaxHeapTest {
         }
 
         return heap;
+    }
+
+    private void testSize(int size, Heap<Integer> maxHeap) {
+        assertEquals(size, maxHeap.size());
+    }
+
+    private void testSize(int size) {
+        assertEquals(size, heap.size());
     }
 
 }

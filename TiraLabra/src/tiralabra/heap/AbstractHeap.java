@@ -67,23 +67,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         }
     }
 
-    /**
-     * OVERRIDE THIS METHOD
-     *
-     * @param nodeIndex which node is inspected
-     */
-    protected void heapifyWithComparator(int nodeIndex) {
+    protected abstract void heapifyWithComparator(int nodeIndex);
 
-    }
-
-    /**
-     * OVERRIDE THIS METHOD
-     *
-     * @param nodeIndex which node is inspected
-     */
-    protected void heapifyWithoutComparator(int nodeIndex) {
-
-    }
+    protected abstract void heapifyWithoutComparator(int nodeIndex);
 
     /**
      * Insert element x into the heap, while maintaining the heap invariant by
@@ -105,7 +91,7 @@ public abstract class AbstractHeap<E> implements Heap<E> {
             throw new NullPointerException("Can't insert null element");
         }
         if (currentSize >= capacity) {
-            return false;
+            grow();
         }
 
         if (currentSize == 0) {
@@ -121,23 +107,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
         return true;
     }
 
-    /**
-     * OVERRIDE THIS METHOD
-     *
-     * @param e node that is being inserted
-     */
-    protected void insertWithoutComparator(E e) {
+    protected abstract void insertWithoutComparator(E e);
 
-    }
-
-    /**
-     * OVERRIDE THIS METHOD
-     *
-     * @param e node that is being inserted
-     */
-    protected void insertWithComparator(E e) {
-
-    }
+    protected abstract void insertWithComparator(E e);
 
     @Override
     public E remove() {
@@ -174,6 +146,27 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     @Override
     public void printHeap() {
         System.out.println(Arrays.toString(heap));
+    }
+
+    /**
+     * Grow the capacity of the heap when the old capacity becomes too small. If
+     * the old capacity is under 20, grow size by 10, else double the size.
+     */
+    protected void grow() {
+        int newCapacity;
+        if (capacity < 20) {
+            newCapacity = capacity + 10;
+        } else {
+            newCapacity = capacity * 2;
+        }
+
+        int maxArraySize = Integer.MAX_VALUE - 8;
+
+        if (newCapacity > maxArraySize) {
+            newCapacity = maxArraySize;
+        }
+
+        heap = Arrays.copyOf(heap, newCapacity);
     }
 
     /**

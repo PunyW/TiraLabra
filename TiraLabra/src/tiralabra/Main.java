@@ -1,8 +1,10 @@
 package tiralabra;
 
 import java.util.Random;
+import java.util.Scanner;
 import tiralabra.heap.Heap;
 import tiralabra.heap.MaxHeap;
+import tiralabra.heap.MinHeap;
 
 /**
  *
@@ -14,24 +16,45 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("What do you want to test?");
+            System.out.println("1: Heaps \t 2: Sorting Algorithms");
+            System.out.println("Anything else quits");
 
-        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
-        benchmark.run(true);
-        benchmark.setSize(10000);
-        benchmark.run(false);
+            int input = Integer.parseInt(scanner.nextLine());
+
+            if (input == 2) {
+
+                BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
+                benchmark.run(true);
+                benchmark.setSize(10000);
+                benchmark.run(false);
+
+            } else if (input == 1) {
+                testHeaps();
+            } else {
+                System.exit(0);
+            }
+        }
     }
 
-    private static void testMaxHeap() {
-        Heap<Integer> heap = randomizeHeap(10);
+    private static void testHeaps() {
+        Heap<Integer> maxHeap = new MaxHeap<>();
+        maxHeap = randomizeHeapWithoutSame(10, maxHeap);
 
-        while (!heap.isEmpty()) {
-            System.out.println("Removed: " + heap.remove());
-        }
-        heap.printHeap();
+        Heap<Integer> minHeap = new MinHeap<>();
+        minHeap = randomizeHeapWithSame(10, minHeap);
 
-        while (!heap.isEmpty()) {
-            System.out.println("Removed: " + heap.remove());
+        System.out.println("======================================");
+        System.out.println("Testing with randomized heaps with \nnumbers between 0 - 20");
+        System.out.println("======================================");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Max Heap Removed: " + maxHeap.remove());
+            System.out.println("\tMin Heap Removed: " + minHeap.remove());
         }
+
     }
 
     private static int[] randomizeArray(int size) {
@@ -43,14 +66,23 @@ public class Main {
         return testArray;
     }
 
-    private static Heap<Integer> randomizeHeap(int size) {
-        Heap<Integer> heap = new MaxHeap<>(size);
+    private static Heap<Integer> randomizeHeapWithoutSame(int size, Heap<Integer> heap) {
         Random random = new Random();
         for (int i = 0; i < size; i++) {
-            int rnd = random.nextInt(100);
+            int rnd = random.nextInt(size * 2);
             while (heap.contains(rnd)) {
-                rnd = random.nextInt(100);
+                rnd = random.nextInt(size * 2);
             }
+            heap.insert(rnd);
+        }
+
+        return heap;
+    }
+
+    private static Heap<Integer> randomizeHeapWithSame(int size, Heap<Integer> heap) {
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            int rnd = random.nextInt(size * 2);
             heap.insert(rnd);
         }
 

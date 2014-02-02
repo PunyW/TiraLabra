@@ -15,17 +15,10 @@ public class Main {
      */
     public static void main(String[] args) {
 
-//        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
-//        benchmark.run(true);
-//        benchmark.setSize(10000);
-//        benchmark.run(false);
-//        long startTime = System.nanoTime();
-//        int[] test = randomizeArray(100);
-//        BubbleSort.sort(test);
-//        long stopTime = System.nanoTime();
-//        long elapsed = stopTime - startTime;
-//        System.out.println("Elapsed: " + elapsed / 1000000);
-//        System.out.println(Arrays.toString(test));
+        BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
+        benchmark.run(true);
+        benchmark.setSize(10000);
+        benchmark.run(false);
     }
 
     private static void testMaxHeap() {

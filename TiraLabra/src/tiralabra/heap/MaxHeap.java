@@ -39,8 +39,8 @@ public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
          To compare nodes with their natural ordering cast them into Comparable
          objects 
          */
-        Comparable<? super E> left = (Comparable<? super E>) heap[leftIndex];
-        Comparable<? super E> node = (Comparable<? super E>) heap[nodeIndex];
+        E left = (E) heap[leftIndex];
+        E node = (E) heap[nodeIndex];
 
         int largestIndex;
 
@@ -60,18 +60,16 @@ public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
     }
 
     @Override
-    protected void heapInsert(E e) {
-        Comparable<? super E> node = (Comparable<? super E>) e;
-
+    protected void heapInsert(E node) {
         int i = currentSize;
         currentSize++;
 
         while (i > 0) {
             int parentIndex = getParentIndex(i - 1);
 
-            Object parent = heap[parentIndex];
+            E parent = (E) heap[parentIndex];
 
-            if (node.compareTo((E) parent) <= 0) {
+            if (node.compareTo(parent) <= 0) {
                 break;
             }
             heap[i] = parent;

@@ -29,8 +29,8 @@ public class MinHeap<E extends Comparable<E>> extends AbstractHeap<E> {
          To compare nodes with their natural ordering cast them into Comparable
          objects 
          */
-        Comparable<? super E> left = (Comparable<? super E>) heap[leftIndex];
-        Comparable<? super E> node = (Comparable<? super E>) heap[nodeIndex];
+        E left = (E) heap[leftIndex];
+        E node = (E) heap[nodeIndex];
 
         int largestIndex;
 
@@ -50,9 +50,7 @@ public class MinHeap<E extends Comparable<E>> extends AbstractHeap<E> {
     }
 
     @Override
-    protected void heapInsert(E e) {
-        Comparable<? super E> node = (Comparable<? super E>) e;
-
+    protected void heapInsert(E node) {
         int i = currentSize;
         currentSize++;
 

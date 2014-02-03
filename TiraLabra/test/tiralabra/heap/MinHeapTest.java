@@ -50,6 +50,14 @@ public class MinHeapTest {
     }
 
     @Test
+    public void peekWorks() {
+        Heap<Integer> minHeap = new MinHeap<>();
+        minHeap.add(10);
+        minHeap.add(9);
+        assertEquals(9, (int) minHeap.peek());
+    }
+
+    @Test
     public void constructorThrowsIllegalArgumentExceptionWithSizeUnderOne() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("Initial capacity cannot be under 1");
@@ -60,7 +68,7 @@ public class MinHeapTest {
     public void testRandomHeap() {
         int prev = heap.remove();
         while (!heap.isEmpty()) {
-            int current = heap.remove();
+            int current = heap.pop();
             if (prev > current) {
                 fail("Items that are popped first should be the largest ones, "
                         + "now it wasn't so: current items value - "

@@ -28,9 +28,9 @@ public interface Heap<E> {
     public boolean insert(E e);
 
     /**
-     * Calls insert
+     * Add an item to the heap. Override this method in heap implementation.
      *
-     * @param e element to be inserted
+     * @param e E to be inserted
      * @return true if the element was inserted into the heap
      */
     public boolean add(E e);
@@ -42,6 +42,21 @@ public interface Heap<E> {
      * @return First item of the heap
      */
     public E remove();
+
+    /**
+     * Remove the first item of the heap, in max-heap the item with maximum
+     * value and in min-heap the item with the minimum value.
+     *
+     * @return First item of the heap
+     */
+    public E pop();
+
+    /**
+     * Peek at the first item of the heap without removing it
+     *
+     * @return First item of the heap
+     */
+    public E peek();
 
     /**
      * Check that the heap conditions are met at the index node, if they aren't

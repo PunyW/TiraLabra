@@ -6,6 +6,7 @@ import java.util.Arrays;
  * Abstract heap structure for implementing heaps
  *
  * @author Joel
+ *
  * @param <E> Type of elements contained in this heap
  */
 public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
@@ -108,6 +109,20 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
         heapify(0);
 
         return item;
+    }
+
+    @Override
+    public E pop() {
+        return remove();
+    }
+
+    @Override
+    public E peek() {
+        if (currentSize == 0) {
+            return null;
+        }
+
+        return (E) heap[0];
     }
 
     @Override

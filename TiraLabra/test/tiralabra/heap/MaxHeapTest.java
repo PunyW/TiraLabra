@@ -58,6 +58,12 @@ public class MaxHeapTest {
     }
 
     @Test
+    public void peekReturnsNullIfNoItemsInTheHeap() {
+        Heap<Integer> maxHeap = new MaxHeap<>();
+        assertEquals(null, maxHeap.peek());
+    }
+
+    @Test
     public void constructorThrowsIllegalArgumentExceptionWithSizeUnderOne() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("Initial capacity cannot be under 1");
@@ -97,7 +103,7 @@ public class MaxHeapTest {
         }
         testSize(100, maxHeap);
     }
-    
+
     @Test
     public void clearWorks() {
         heap.clear();

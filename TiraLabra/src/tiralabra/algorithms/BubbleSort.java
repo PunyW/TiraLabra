@@ -7,7 +7,10 @@ package tiralabra.algorithms;
 public class BubbleSort {
 
     /**
-     * Sort an array of integers
+     * Sort an array of integers using the bubble sort method. 
+     * Go through the list as long as sorted equals to false, check 
+     * that if list[current] > list[next], swap current and next 
+     * with each other, and change sorted into false. 
      *
      * @param list list to be sorted
      */

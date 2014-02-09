@@ -9,7 +9,16 @@ public class HeapSort {
     private static int heapSize;
 
     /**
-     * Sort an list using heap sort
+     * Sort an list using heap sort.
+     * <p>
+     * First make the list into a heap by calling build heap, which calls
+     * heapify to each node with a child. After which the list is presented as a
+     * max heap like data structure, and now we know that the largest node is at
+     * position 0. To sort the array we swap the first and last items place, so
+     * now the largest item is the very last of the array, to exclude the
+     * largest item from further heapify operations decrease heap size by 1.
+     * </p>
+     *
      *
      * @param list list to be sorted
      */

@@ -79,20 +79,6 @@ public class BenchmarkSorting {
         System.out.println("================================================");
         calculateAverages();
         printStats();
-
-//        testBubble(testArray);
-//        testMerge(testArray);
-//        testHeap(testArray);
-//        testQuick(testArray);
-//        testStandard(testArray);
-//        testCounting(testArray);
-//
-//        System.out.println("================================================");
-//        System.out.println("Time in milliseconds it took to sort an already\n"
-//                + "sorted array with " + arraySize + " items.");
-//        System.out.println("================================================");
-//        calculateAverages();
-//        printStats();
     }
 
     private void calculateAverages() {

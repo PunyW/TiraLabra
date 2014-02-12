@@ -12,6 +12,12 @@ public class QuickSort {
      * @param A Array to be sorted
      */
     public static void sort(int[] A) {
+        // For arrays larger than 100 000 check if it's already sorted
+        if (A.length > 100000) {
+            if (checkIfSorted(A)) {
+                return;
+            }
+        }
         sort(A, 0, A.length - 1);
     }
 
@@ -21,6 +27,23 @@ public class QuickSort {
             sort(A, left, pivot);
             sort(A, pivot + 1, right);
         }
+    }
+
+    /**
+     * Check that if the array given for sorting is already sorted
+     *
+     * @param A Array to be checked
+     * @return True if the array is sorted otherwise false
+     */
+    private static boolean checkIfSorted(int[] A) {
+
+        for (int i = 0; i < A.length - 1; i++) {
+            if (A[i] > A[i + 1]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

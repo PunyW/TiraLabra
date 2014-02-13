@@ -86,19 +86,24 @@ public class GUI extends JFrame {
 
         confLayouts();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(sortingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(sortingPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(optionsPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(sortingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(sortingPanel, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -109,9 +114,13 @@ public class GUI extends JFrame {
     }
 
     private void confLayouts() {
-
+        confOptionsLayout();
         confAlgoLayout();
 
+    }
+
+    private void confOptionsLayout() {
+        
     }
 
     private void confAlgoLayout() {
@@ -163,9 +172,9 @@ public class GUI extends JFrame {
 
         ParallelGroup loopNTitle = algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(loop).addGroup(titleGroup);
-        
+
         mainSeq.addGroup(loopNTitle);
-        
+
         SequentialGroup boxes = algoLayout.createSequentialGroup().addGap(35);
         ParallelGroup checkBoxes = algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
         checkBoxes.addComponent(bubbleSort);

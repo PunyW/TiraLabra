@@ -20,6 +20,7 @@ public class Main {
 
         Interface ui = new Interface();
         ui.run();
+
     }
 
     private static void testHeaps() {

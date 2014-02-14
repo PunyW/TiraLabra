@@ -47,9 +47,8 @@ public class GUI extends JFrame {
     private JCheckBox testSorted;
 
     /**
-     * Different Labels for naming stuff and separator
+     * Title labels
      */
-    private JSeparator separator;
     private JLabel enabled;
     private JLabel currentLoop;
     private JLabel lastSortTime;
@@ -57,10 +56,33 @@ public class GUI extends JFrame {
     private JLabel sortedSortTime;
 
     /**
-     * Sliders for array size selector and loop size selector
+     * Labels for time taking / benchmarking
+     */
+    private JLabel bubbleTime;
+    private JLabel bubbleAverage;
+    private JLabel bubbleSorted;
+    private JLabel mergeTime;
+    private JLabel mergeAverage;
+    private JLabel mergeSorted;
+    private JLabel heapTime;
+    private JLabel heapAverage;
+    private JLabel heapSorted;
+    private JLabel quickTime;
+    private JLabel quickAverage;
+    private JLabel quickSorted;
+    private JLabel countingTime;
+    private JLabel countingAverage;
+    private JLabel countingSorted;
+    private JLabel standardTime;
+    private JLabel standardAverage;
+    private JLabel standardSorted;
+
+    /**
+     * Sliders for array size selector and loop size selector and separator
      */
     private JSlider arraySize;
     private JSlider loops;
+    private JSeparator separator;
 
     /**
      * Panel Layouts
@@ -84,7 +106,7 @@ public class GUI extends JFrame {
         optionsPanel.setLayout(optionsLayout);
 
         sortingPanel.setBorder(BorderFactory.createTitledBorder(null,
-                "Sorting Algorithms", TitledBorder.DEFAULT_JUSTIFICATION,
+                "Sorting Algorithms - (I advice to disable bubble sort with arrays larger than 20k)", TitledBorder.DEFAULT_JUSTIFICATION,
                 TitledBorder.DEFAULT_POSITION, boldedFont));
         sortingPanel.setLayout(algoLayout);
 
@@ -180,65 +202,106 @@ public class GUI extends JFrame {
     }
 
     private void algoSetVerticalGroup() {
-        SequentialGroup seq = algoLayout.createSequentialGroup();
-
-        ParallelGroup loopGroup = algoLayout.createParallelGroup(GroupLayout.Alignment.BASELINE);
-        loopGroup.addComponent(currentLoop);
-
-        seq.addGroup(loopGroup).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
-                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-
-        ParallelGroup titleGroup = algoLayout.createParallelGroup(GroupLayout.Alignment.BASELINE);
-        titleGroup.addComponent(enabled);
-        titleGroup.addComponent(lastSortTime);
-        titleGroup.addComponent(averageSortTime);
-        titleGroup.addComponent(sortedSortTime);
-
-        seq.addGroup(titleGroup).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(separator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(bubbleSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(mergeSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(heapSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(quickSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(countingSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
-        seq.addComponent(standardSort).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addContainerGap();
-
         algoLayout.setVerticalGroup(
-                algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(GroupLayout.Alignment.TRAILING, seq));
+                algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, algoLayout.createSequentialGroup()
+                        .addContainerGap(22, Short.MAX_VALUE)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(enabled)
+                                .addComponent(lastSortTime)
+                                .addComponent(averageSortTime)
+                                .addComponent(sortedSortTime))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bubbleSort)
+                                .addComponent(bubbleTime)
+                                .addComponent(bubbleAverage)
+                                .addComponent(bubbleSorted))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(mergeSort)
+                                .addComponent(mergeTime)
+                                .addComponent(mergeAverage)
+                                .addComponent(mergeSorted))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(heapSort)
+                                .addComponent(heapTime)
+                                .addComponent(heapAverage)
+                                .addComponent(heapSorted))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(quickSort)
+                                .addComponent(quickTime)
+                                .addComponent(quickAverage)
+                                .addComponent(quickSorted))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(countingSort)
+                                .addComponent(countingTime)
+                                .addComponent(countingAverage)
+                                .addComponent(countingSorted))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(standardSort)
+                                .addComponent(standardTime)
+                                .addComponent(standardAverage)
+                                .addComponent(standardSorted))
+                        .addContainerGap())
+        );
     }
 
     private void algoSetHorizontalGroup() {
-        SequentialGroup mainSeq = algoLayout.createSequentialGroup().addGap(35);
-
-        SequentialGroup loop = algoLayout.createSequentialGroup();
-        loop.addComponent(currentLoop);
-
-        SequentialGroup titleGroup = algoLayout.createSequentialGroup();
-        titleGroup.addComponent(enabled).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE);
-        titleGroup.addComponent(lastSortTime).addGap(120, 120, 120);
-        titleGroup.addComponent(averageSortTime).addGap(120, 120, 120);
-        titleGroup.addComponent(sortedSortTime);
-
-        ParallelGroup loopNTitle = algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(loop).addGroup(titleGroup);
-
-        mainSeq.addGroup(loopNTitle);
-
-        SequentialGroup boxes = algoLayout.createSequentialGroup().addGap(35);
-        ParallelGroup checkBoxes = algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
-        checkBoxes.addComponent(bubbleSort);
-        checkBoxes.addComponent(mergeSort);
-        checkBoxes.addComponent(heapSort);
-        checkBoxes.addComponent(quickSort);
-        checkBoxes.addComponent(countingSort);
-        checkBoxes.addComponent(standardSort);
-        boxes.addGroup(checkBoxes).addContainerGap();
-
-        algoLayout.setHorizontalGroup(algoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(separator).addGroup(mainSeq).addGroup(boxes));
-
+        algoLayout.setHorizontalGroup(
+                algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(separator)
+                .addGroup(algoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(enabled)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addComponent(lastSortTime)
+                        .addGap(132, 132, 132)
+                        .addComponent(averageSortTime)
+                        .addGap(130, 130, 130)
+                        .addComponent(sortedSortTime)
+                        .addGap(69, 69, 69))
+                .addGroup(algoLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bubbleSort)
+                                .addComponent(mergeSort)
+                                .addComponent(heapSort)
+                                .addComponent(quickSort)
+                                .addComponent(countingSort)
+                                .addComponent(standardSort))
+                        .addGap(70, 70, 70)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bubbleTime)
+                                .addComponent(mergeTime)
+                                .addComponent(heapTime)
+                                .addComponent(quickTime)
+                                .addComponent(countingTime)
+                                .addComponent(standardTime))
+                        .addGap(280, 280, 280)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bubbleAverage)
+                                .addComponent(standardAverage)
+                                .addComponent(countingAverage)
+                                .addComponent(quickAverage)
+                                .addComponent(heapAverage)
+                                .addComponent(mergeAverage))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(algoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bubbleSorted)
+                                .addComponent(mergeSorted)
+                                .addComponent(heapSorted)
+                                .addComponent(quickSorted)
+                                .addComponent(countingSorted)
+                                .addComponent(standardSorted))
+                        .addGap(100, 100, 100))
+        );
     }
 
     private void initComponents() {
@@ -248,6 +311,9 @@ public class GUI extends JFrame {
         optionsLayout = new GroupLayout(optionsPanel);
         algoLayout = new GroupLayout(sortingPanel);
 
+        /**
+         * Check Boxes
+         */
         bubbleSort = new JCheckBox();
         mergeSort = new JCheckBox();
         heapSort = new JCheckBox();
@@ -257,31 +323,65 @@ public class GUI extends JFrame {
         testSorted = new JCheckBox();
         confCheckBoxes();
 
+        /**
+         * Labels
+         */
         separator = new JSeparator();
         enabled = new JLabel();
         currentLoop = new JLabel();
         lastSortTime = new JLabel();
         averageSortTime = new JLabel();
         sortedSortTime = new JLabel();
+
+        /**
+         * Timing Labels
+         */
+        bubbleTime = new JLabel();
+        bubbleAverage = new JLabel();
+        bubbleSorted = new JLabel();
+        mergeTime = new JLabel();
+        mergeAverage = new JLabel();
+        mergeSorted = new JLabel();
+        heapTime = new JLabel();
+        heapAverage = new JLabel();
+        heapSorted = new JLabel();
+        quickTime = new JLabel();
+        quickAverage = new JLabel();
+        quickSorted = new JLabel();
+        countingTime = new JLabel();
+        countingAverage = new JLabel();
+        countingSorted = new JLabel();
+        standardTime = new JLabel();
+        standardAverage = new JLabel();
+        standardSorted = new JLabel();
         confLabels();
 
+        /**
+         * Sliders
+         */
         arraySize = new JSlider();
         loops = new JSlider();
         confSliders();
 
+        /**
+         * Buttons
+         */
         startTest = new JButton();
         startTest.setFont(font);
         startTest.setText("Start Test");
         startTest.addActionListener(ui.getStartTest());
 
+        /**
+         * Fonts
+         */
         font = new Font("Dialog", 0, 12);
         boldedFont = new Font("Dialog", 1, 12);
     }
 
     private void confSliders() {
-        arraySize.setMajorTickSpacing(250000);
+        arraySize.setMajorTickSpacing(200000);
         arraySize.setMaximum(1000000);
-        arraySize.setMinorTickSpacing(1000);
+        arraySize.setMinorTickSpacing(100000);
         arraySize.setPaintLabels(true);
         arraySize.setPaintTicks(true);
         arraySize.setValue(100000);
@@ -302,7 +402,7 @@ public class GUI extends JFrame {
 
     private void confCheckBoxes() {
         bubbleSort.setFont(font);
-        bubbleSort.setSelected(true);
+        bubbleSort.setSelected(false);
         bubbleSort.setLabel("Bubble Sort");
         bubbleSort.addItemListener(ui.getCheckBoxListener().getBl());
 
@@ -340,22 +440,110 @@ public class GUI extends JFrame {
         enabled.setFont(font);
         enabled.setText("Enabled");
 
-        currentLoop.setFont(font);
-        currentLoop.setText("Current Loop #: ");
-
         lastSortTime.setFont(font);
-        lastSortTime.setText("Loop Sort Time");
+        lastSortTime.setText("Last Loops sort time in ms");
 
         averageSortTime.setFont(font);
-        averageSortTime.setText("Average Sort Time");
+        averageSortTime.setText("Average Sort Time in ms");
 
         sortedSortTime.setFont(font);
-        sortedSortTime.setText("Time to Sort Sorted Array");
-    }
-    
-    public void setLabelTexts() {
-        
-        repaint();
+        sortedSortTime.setText("Time to Sort Sorted Array in ms");
+
+        confChangingLabels();
     }
 
+    private void confChangingLabels() {
+        bubbleTime.setFont(font);
+        bubbleTime.setText("-");
+
+        bubbleAverage.setFont(font);
+        bubbleAverage.setText("-");
+
+        bubbleSorted.setFont(font);
+        bubbleSorted.setText("-");
+
+        mergeTime.setFont(font);
+        mergeTime.setText("-");
+
+        mergeAverage.setFont(font);
+        mergeAverage.setText("-");
+
+        mergeSorted.setFont(font);
+        mergeSorted.setText("-");
+
+        heapTime.setFont(font);
+        heapTime.setText("-");
+
+        heapAverage.setFont(font);
+        heapAverage.setText("-");
+
+        heapSorted.setFont(font);
+        heapSorted.setText("-");
+
+        quickTime.setFont(font);
+        quickTime.setText("-");
+
+        quickAverage.setFont(font);
+        quickAverage.setText("-");
+
+        quickSorted.setFont(font);
+        quickSorted.setText("-");
+
+        countingTime.setFont(font);
+        countingTime.setText("-");
+
+        countingAverage.setFont(font);
+        countingAverage.setText("-");
+
+        countingSorted.setFont(font);
+        countingSorted.setText("-");
+
+        standardTime.setFont(font);
+        standardTime.setText("-");
+
+        standardAverage.setFont(font);
+        standardAverage.setText("-");
+
+        standardSorted.setFont(font);
+        standardSorted.setText("-");
+    }
+
+    public void setLabelTexts() {
+        bubbleAverage.setText(ui.getBm().getBubbleAvg());
+        mergeAverage.setText(ui.getBm().getMergeAvg());
+        heapAverage.setText(ui.getBm().getHeapAvg());
+        quickAverage.setText(ui.getBm().getQuickAvg());
+        countingAverage.setText(ui.getBm().getCountingAvg());
+        standardAverage.setText(ui.getBm().getStandardAvg());
+    }
+
+    public void setSortedTexts() {
+    }
+
+    public void setBubbleText(String text) {
+        bubbleTime.setText(text);
+        this.validate();
+    }
+
+    public void setMergeText(String text) {
+        mergeTime.setText(text);
+    }
+
+    public void setHeapText(String text) {
+        heapTime.setText(text);
+    }
+
+    public void setQuickText(String text) {
+        quickTime.setText(text);
+    }
+
+    public void setCountingText(String text) {
+        countingTime.setText(text);
+    }
+
+    public void setStandardText(String text) {
+        standardTime.setText(text);
+        standardTime.validate();
+        standardTime.repaint();
+    }
 }

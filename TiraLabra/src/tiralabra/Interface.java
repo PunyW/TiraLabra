@@ -48,6 +48,7 @@ public class Interface implements Runnable {
     public void run() {
         GUI gui = new GUI(this);
         gui.setVisible(true);
+        bm.setGUI(gui);
     }
 
 }

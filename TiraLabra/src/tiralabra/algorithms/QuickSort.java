@@ -13,7 +13,7 @@ public class QuickSort {
      */
     public static void sort(int[] A) {
         // For arrays larger than 100 000 check if it's already sorted
-        if (A.length > 100000) {
+        if (A.length > 10000) {
             if (checkIfSorted(A)) {
                 return;
             }

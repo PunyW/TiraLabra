@@ -518,11 +518,16 @@ public class GUI extends JFrame {
     }
 
     public void setSortedTexts() {
+        bubbleSorted.setText(ui.getBm().getBubbleSorted());
+        mergeSorted.setText(ui.getBm().getMergeSorted());
+        heapSorted.setText(ui.getBm().getHeapSorted());
+        quickSorted.setText(ui.getBm().getQuickSorted());
+        countingSorted.setText(ui.getBm().getCountingSorted());
+        standardSorted.setText(ui.getBm().getStandardSorted());
     }
 
     public void setBubbleText(String text) {
         bubbleTime.setText(text);
-        this.validate();
     }
 
     public void setMergeText(String text) {
@@ -543,7 +548,5 @@ public class GUI extends JFrame {
 
     public void setStandardText(String text) {
         standardTime.setText(text);
-        standardTime.validate();
-        standardTime.repaint();
     }
 }

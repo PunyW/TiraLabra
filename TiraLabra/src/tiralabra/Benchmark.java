@@ -19,6 +19,7 @@ public class Benchmark {
 
     private long bubbleTime, mergeTime, heapTime, quickTime, countingTime, standardTime;
     private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
+    private long bubbleSorted, mergeSorted, heapSorted, quickSorted, countingSorted, standardSorted;
     private int arraySize;
     private int loops = 10;
     private boolean bubble, merge, heap, quick, counting, standard, testSorted;
@@ -30,12 +31,8 @@ public class Benchmark {
      */
     public Benchmark() {
         arraySize = 100000;
-        bubbleTime = 0;
-        mergeTime = 0;
-        heapTime = 0;
-        quickTime = 0;
-        countingTime = 0;
-        standardTime = 0;
+        bubbleTime = mergeTime = heapTime = quickTime = countingTime = standardTime = 0;
+        bubbleSorted = mergeSorted = heapSorted = quickSorted = countingSorted = standardSorted = 0;
         merge = heap = quick = counting = standard = true;
         testSorted = bubble = false;
     }
@@ -60,14 +57,7 @@ public class Benchmark {
     public void startTest() {
         System.out.println("Starting to sort array with size of " + arraySize);
         System.out.println("Going through " + loops + " loops");
-        System.out.println("Algorithms enabled: ");
-        System.out.println("\tBubble: " + bubble);
-        System.out.println("\tMerge: " + merge);
-        System.out.println("\tHeap: " + heap);
-        System.out.println("\tQuick: " + quick);
-        System.out.println("\tCounting: " + counting);
-        System.out.println("\tArrays.sort: " + standard);
-        System.out.println("Test Sorted is " + testSorted);
+        System.out.println("");
 
         run();
     }
@@ -86,38 +76,71 @@ public class Benchmark {
 
             if (bubble) {
                 int[] bubbleArray = Arrays.copyOf(testArray, arraySize);
-                testBubble(bubbleArray);
+                testBubble(bubbleArray, false);
             }
 
             if (merge) {
                 int[] mergeArray = Arrays.copyOf(testArray, arraySize);
-                testMerge(mergeArray);
+                testMerge(mergeArray, false);
             }
 
             if (heap) {
                 int[] heapArray = Arrays.copyOf(testArray, arraySize);
-                testHeap(heapArray);
+                testHeap(heapArray, false);
             }
 
             if (quick) {
                 int[] quickArray = Arrays.copyOf(testArray, arraySize);
-                testQuick(quickArray);
+                testQuick(quickArray, false);
             }
 
             if (counting) {
                 int[] countArray = Arrays.copyOf(testArray, arraySize);
-                testCounting(countArray);
+                testCounting(countArray, false);
 
             }
 
             if (standard) {
-                testStandard(testArray);
+                testStandard(testArray, false);
             }
+
+        }
+
+        if (testSorted) {
+            testSortedArrays(testArray);
         }
 
         calculateAverages();
         gui.setLabelTexts();
         bubbleTime = heapTime = mergeTime = quickTime = countingTime = standardTime = 0;
+    }
+
+    private void testSortedArrays(int[] testArray) {
+        
+        if (bubble) {
+            testBubble(testArray, true);
+        }
+
+        if (heap) {
+            testHeap(testArray, true);
+        }
+
+        if (merge) {
+            testMerge(testArray, true);
+        }
+
+        if (quick) {
+            testQuick(testArray, true);
+        }
+
+        if (counting) {
+            testCounting(testArray, true);
+        }
+
+        if (standard) {
+            testStandard(testArray, true);
+        }
+        gui.setSortedTexts();
     }
 
     private void calculateAverages() {
@@ -151,15 +174,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testBubble(int[] testArray) {
+    private void testBubble(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         BubbleSort.sort(testArray);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        bubbleTime += elapsed;
-        gui.setBubbleText("" + elapsed);
-        gui.repaint();
+
+        if (sorted) {
+            bubbleSorted = elapsed;
+        } else {
+            bubbleTime += elapsed;
+            gui.setBubbleText("" + elapsed);
+        }
     }
 
     /**
@@ -170,14 +197,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testMerge(int[] testArray) {
+    private void testMerge(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         MergeSort.sort(testArray);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        mergeTime += elapsed;
-        gui.setMergeText("" + elapsed);
+
+        if (sorted) {
+            mergeSorted = elapsed;
+        } else {
+            mergeTime += elapsed;
+            gui.setMergeText("" + elapsed);
+        }
     }
 
     /**
@@ -188,14 +220,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testHeap(int[] testArray) {
+    private void testHeap(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         HeapSort.sort(testArray);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        heapTime += elapsed;
-        gui.setHeapText("" + elapsed);
+
+        if (sorted) {
+            heapSorted = elapsed;
+        } else {
+            heapTime += elapsed;
+            gui.setHeapText("" + elapsed);
+        }
     }
 
     /**
@@ -206,14 +243,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testQuick(int[] testArray) {
+    private void testQuick(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         QuickSort.sort(testArray);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        quickTime += elapsed;
-        gui.setQuickText("" + elapsed);
+
+        if (sorted) {
+            quickSorted = elapsed;
+        } else {
+            quickTime += elapsed;
+            gui.setQuickText("" + elapsed);
+        }
     }
 
     /**
@@ -224,14 +266,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testCounting(int[] testArray) {
+    private void testCounting(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         CountingSort.sort(testArray, arraySize * 2);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        countingTime += elapsed;
-        gui.setCountingText("" + elapsed);
+
+        if (sorted) {
+            countingSorted = elapsed;
+        } else {
+            countingTime += elapsed;
+            gui.setCountingText("" + elapsed);
+        }
     }
 
     /**
@@ -242,14 +289,19 @@ public class Benchmark {
      *
      * @param testArray Array to be sorted
      */
-    private void testStandard(int[] testArray) {
+    private void testStandard(int[] testArray, boolean sorted) {
         long startTime = System.nanoTime();
         Arrays.sort(testArray);
 
         long stopTime = System.nanoTime();
         long elapsed = (stopTime - startTime) / 1000000;
-        standardTime += elapsed;
-        gui.setStandardText("" + elapsed);
+
+        if (sorted) {
+            standardSorted = elapsed;
+        } else {
+            standardTime += elapsed;
+            gui.setStandardText("" + elapsed);
+        }
     }
 
     public String getBubbleAvg() {
@@ -290,7 +342,7 @@ public class Benchmark {
 
     public String getStandardAvg() {
         if (standardAvg >= 0) {
-            return bubbleAvg + "";
+            return standardAvg + "";
         }
         return "-";
     }
@@ -322,4 +374,29 @@ public class Benchmark {
     public void setStandard(boolean enabled) {
         standard = enabled;
     }
+
+    public String getBubbleSorted() {
+        return bubbleSorted + "";
+    }
+
+    public String getMergeSorted() {
+        return mergeSorted + "";
+    }
+
+    public String getHeapSorted() {
+        return heapSorted + "";
+    }
+
+    public String getQuickSorted() {
+        return quickSorted + "";
+    }
+
+    public String getCountingSorted() {
+        return countingSorted + "";
+    }
+
+    public String getStandardSorted() {
+        return standardSorted + "";
+    }
+
 }

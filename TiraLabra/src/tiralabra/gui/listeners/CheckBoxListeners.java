@@ -11,6 +11,11 @@ public class CheckBoxListeners {
     private Benchmark bm;
     private BubbleListener bl;
     private MergeListener ml;
+    private HeapListener hl;
+    private QuickListener ql;
+    private CountingListener cl;
+    private StandardListener sl;
+    private TestSortedListener tsl;
 
     public CheckBoxListeners(Benchmark bm) {
         this.bm = bm;
@@ -20,6 +25,11 @@ public class CheckBoxListeners {
     private void initListeners() {
         bl = new BubbleListener(bm);
         ml = new MergeListener(bm);
+        hl = new HeapListener(bm);
+        ql = new QuickListener(bm);
+        cl = new CountingListener(bm);
+        sl = new StandardListener(bm);
+        tsl = new TestSortedListener(bm);
     }
 
     public BubbleListener getBl() {
@@ -30,4 +40,23 @@ public class CheckBoxListeners {
         return ml;
     }
 
+    public HeapListener getHl() {
+        return hl;
+    }
+
+    public CountingListener getCl() {
+        return cl;
+    }
+
+    public StandardListener getSl() {
+        return sl;
+    }
+
+    public TestSortedListener getTsl() {
+        return tsl;
+    }
+
+    public QuickListener getQl() {
+        return ql;
+    }
 }

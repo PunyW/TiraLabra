@@ -3,6 +3,7 @@ package tiralabra;
 import tiralabra.gui.listeners.SliderListener;
 import tiralabra.gui.GUI;
 import tiralabra.gui.listeners.CheckBoxListeners;
+import tiralabra.gui.listeners.StartTestListener;
 
 /**
  *
@@ -13,6 +14,7 @@ public class Interface implements Runnable {
     private final Benchmark bm = new Benchmark();
     private SliderListener sl;
     private CheckBoxListeners cbl;
+    private StartTestListener startTest;
 
     public Interface() {
         init();
@@ -22,6 +24,8 @@ public class Interface implements Runnable {
     private void init() {
         sl = new SliderListener(bm);
         cbl = new CheckBoxListeners(bm);
+        startTest = new StartTestListener(bm);
+
     }
 
     public Benchmark getBm() {
@@ -34,6 +38,10 @@ public class Interface implements Runnable {
 
     public SliderListener getSliderListener() {
         return sl;
+    }
+
+    public StartTestListener getStartTest() {
+        return startTest;
     }
 
     @Override

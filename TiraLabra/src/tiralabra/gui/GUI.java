@@ -272,6 +272,7 @@ public class GUI extends JFrame {
         startTest = new JButton();
         startTest.setFont(font);
         startTest.setText("Start Test");
+        startTest.addActionListener(ui.getStartTest());
 
         font = new Font("Dialog", 0, 12);
         boldedFont = new Font("Dialog", 1, 12);
@@ -287,7 +288,7 @@ public class GUI extends JFrame {
         arraySize.setBorder(BorderFactory.createTitledBorder("Size of the Array"));
         arraySize.addChangeListener(ui.getSliderListener());
         arraySize.setName("size");
-        
+
         loops.setMajorTickSpacing(1);
         loops.setMaximum(10);
         loops.setMinimum(1);
@@ -304,29 +305,35 @@ public class GUI extends JFrame {
         bubbleSort.setSelected(true);
         bubbleSort.setLabel("Bubble Sort");
         bubbleSort.addItemListener(ui.getCheckBoxListener().getBl());
-        
+
         mergeSort.setFont(font);
         mergeSort.setSelected(true);
         mergeSort.setLabel("Merge Sort");
+        mergeSort.addItemListener(ui.getCheckBoxListener().getMl());
 
         heapSort.setFont(font);
         heapSort.setSelected(true);
         heapSort.setLabel("Heap Sort");
+        heapSort.addItemListener(ui.getCheckBoxListener().getHl());
 
         quickSort.setFont(font);
         quickSort.setSelected(true);
         quickSort.setLabel("Quick Sort");
+        quickSort.addItemListener(ui.getCheckBoxListener().getQl());
 
         countingSort.setFont(font);
         countingSort.setSelected(true);
         countingSort.setLabel("Counting Sort");
+        countingSort.addItemListener(ui.getCheckBoxListener().getCl());
 
         standardSort.setFont(font);
         standardSort.setSelected(true);
         standardSort.setLabel("Arrays.sort()");
+        standardSort.addItemListener(ui.getCheckBoxListener().getSl());
 
         testSorted.setFont(font);
         testSorted.setLabel("Test Algorithms against sorted array");
+        testSorted.addItemListener(ui.getCheckBoxListener().getTsl());
     }
 
     private void confLabels() {
@@ -344,6 +351,11 @@ public class GUI extends JFrame {
 
         sortedSortTime.setFont(font);
         sortedSortTime.setText("Time to Sort Sorted Array");
+    }
+    
+    public void setLabelTexts() {
+        
+        repaint();
     }
 
 }

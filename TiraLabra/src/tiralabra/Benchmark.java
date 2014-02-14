@@ -7,6 +7,7 @@ import tiralabra.algorithms.CountingSort;
 import tiralabra.algorithms.HeapSort;
 import tiralabra.algorithms.MergeSort;
 import tiralabra.algorithms.QuickSort;
+import tiralabra.gui.GUI;
 
 /**
  * Class to run through all the sorting algorithms and benchmark their
@@ -20,8 +21,8 @@ public class Benchmark {
     private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
     private int arraySize;
     private int loops = 10;
-    private final int maxInt = 9999999;
-    private boolean bubble, merge, heap, quick, counting, standard;
+    private boolean bubble, merge, heap, quick, counting, standard, testSorted;
+    private int currentLoop = 1;
 
     /**
      *
@@ -35,6 +36,8 @@ public class Benchmark {
         quickTime = 0;
         countingTime = 0;
         standardTime = 0;
+        bubble = merge = heap = quick = counting = standard = true;
+        testSorted = false;
     }
 
     public void setSize(int size) {
@@ -48,6 +51,10 @@ public class Benchmark {
     public void test() {
         System.out.println(arraySize);
         System.out.println(loops);
+    }
+
+    public void setTestSorted(boolean enabled) {
+        testSorted = enabled;
     }
 
     public void setBubble(boolean enabled) {
@@ -74,6 +81,19 @@ public class Benchmark {
         standard = enabled;
     }
 
+    public void startTest() {
+        System.out.println("Starting to sort array with size of " + arraySize);
+        System.out.println("Going through " + loops + " loops");
+        System.out.println("Algorithms enabled: ");
+        System.out.println("\tBubble: " + bubble);
+        System.out.println("\tMerge: " + merge);
+        System.out.println("\tHeap: " + heap);
+        System.out.println("\tQuick: " + quick);
+        System.out.println("\tCounting: " + counting);
+        System.out.println("\tArrays.sort: " + standard);
+        System.out.println("Test Sorted is " + testSorted);
+    }
+
     /**
      * Loop through multiple tests with all the algorithms, and get their
      * average spent time sorting an array
@@ -98,20 +118,23 @@ public class Benchmark {
                 int[] bubbleArray = Arrays.copyOf(testArray, arraySize);
                 testBubble(bubbleArray);
             }
+            
             testMerge(mergeArray);
             testHeap(heapArray);
             testQuick(quickArray);
             testCounting(countArray);
             testStandard(testArray);
-        }
 
-        System.out.println("================================================");
-        System.out.println("Average time used in milliseconds to sort an array\n"
-                + "with " + arraySize + " items in " + loops + " loops.");
-        System.out.println("================================================");
-        calculateAverages();
-        printStats();
+            currentLoop++;
+        }
+        currentLoop = 1;
     }
+
+    public int getCurrentLoop() {
+        return currentLoop;
+    }
+    
+    
 
     private void calculateAverages() {
         bubbleAvg = bubbleTime / loops;
@@ -128,18 +151,6 @@ public class Benchmark {
         standardTime = 0;
     }
 
-    private void printStats() {
-        if (bubble) {
-            System.out.println("Bubble Sort: " + bubbleAvg / 1000000);
-        }
-        System.out.println("Merge Sort: " + mergeAvg / 1000000);
-        System.out.println("Heap Sort: " + heapAvg / 1000000);
-        System.out.println("Quick Sort: " + quickAvg / 1000000);
-        System.out.println("Counting Sort: " + countingAvg / 1000000);
-        System.out.println("Arrays.sort: " + standardAvg / 1000000);
-        System.out.println("");
-    }
-
     /**
      * Method to get new randomized array with the size of arraySize
      *
@@ -149,7 +160,7 @@ public class Benchmark {
         int[] testArray = new int[arraySize];
         Random random = new Random();
         for (int i = 0; i < arraySize; i++) {
-            testArray[i] = random.nextInt(maxInt);
+            testArray[i] = random.nextInt(arraySize);
         }
         return testArray;
     }
@@ -233,7 +244,7 @@ public class Benchmark {
      */
     private void testCounting(int[] testArray) {
         long startTime = System.nanoTime();
-        CountingSort.sort(testArray, maxInt);
+        CountingSort.sort(testArray, arraySize);
 
         long stopTime = System.nanoTime();
         long elapsed = stopTime - startTime;
@@ -257,4 +268,54 @@ public class Benchmark {
         standardTime += elapsed;
     }
 
+    public long getBubbleTime() {
+        return bubbleTime;
+    }
+
+    public long getMergeTime() {
+        return mergeTime;
+    }
+
+    public long getHeapTime() {
+        return heapTime;
+    }
+
+    public long getQuickTime() {
+        return quickTime;
+    }
+
+    public long getCountingTime() {
+        return countingTime;
+    }
+
+    public long getStandardTime() {
+        return standardTime;
+    }
+
+    public long getBubbleAvg() {
+        return bubbleAvg;
+    }
+
+    public long getMergeAvg() {
+        return mergeAvg;
+    }
+
+    public long getHeapAvg() {
+        return heapAvg;
+    }
+
+    public long getQuickAvg() {
+        return quickAvg;
+    }
+
+    public long getCountingAvg() {
+        return countingAvg;
+    }
+
+    public long getStandardAvg() {
+        return standardAvg;
+    }
+
+    
+    
 }

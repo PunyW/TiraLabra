@@ -1,6 +1,5 @@
-package tiralabra;
+package tiralabra.gui;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -77,6 +76,8 @@ public class GUI extends JFrame {
     private void initUI() {
         initComponents();
 
+        optionsPanel.setBorder(BorderFactory.createTitledBorder(null, "Sorting Options",
+                TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, boldedFont));
         optionsPanel.setLayout(optionsLayout);
 
         sortingPanel.setBorder(BorderFactory.createTitledBorder(null,
@@ -86,31 +87,35 @@ public class GUI extends JFrame {
 
         confLayouts();
 
-        javax.swing.GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(sortingPanel, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(optionsPanel, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(sortingPanel, GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
-                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        );
+        GroupLayout layout = new GroupLayout(getContentPane());
+        confGroupLayout(layout);
 
         pack();
 
         setTitle("Sorttaus algot");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+
+    private void confGroupLayout(GroupLayout layout) {
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(optionsPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sortingPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(optionsPanel, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sortingPanel, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        );
     }
 
     private void confLayouts() {
@@ -120,15 +125,71 @@ public class GUI extends JFrame {
     }
 
     private void confOptionsLayout() {
+        optionsSetHorizontalGroup();
+        optionsSetVerticalGroup();
+    }
+
+    private void optionsSetHorizontalGroup() {
+
+        ParallelGroup components = optionsLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+
+        SequentialGroup checkBox = optionsLayout.createSequentialGroup();
+        checkBox.addComponent(testSorted).addGap(0, 0, Short.MAX_VALUE);
+
+        SequentialGroup sliders = optionsLayout.createSequentialGroup();
+        sliders.addComponent(arraySize, GroupLayout.PREFERRED_SIZE, 440, GroupLayout.PREFERRED_SIZE);
+        sliders.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED);
+        sliders.addComponent(loops, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+
+        SequentialGroup testButton = optionsLayout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE);
+        testButton.addComponent(startTest);
+
+        components.addGroup(checkBox).addGroup(sliders).addGroup(testButton);
+
+        optionsLayout.setHorizontalGroup(optionsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(components));
+
+    }
+
+    private void optionsSetVerticalGroup() {
+        ParallelGroup main = optionsLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+
+        SequentialGroup components = optionsLayout.createSequentialGroup();
+
+        ParallelGroup sliders = optionsLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+        sliders.addComponent(arraySize, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+        sliders.addComponent(loops, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
         
+        components.addGroup(sliders);
+        components.addGap(20, 20, 20);
+        components.addComponent(testSorted)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE);
+        components.addComponent(startTest).addContainerGap();
+
+        optionsLayout.setVerticalGroup(main.addGroup(components));
+
+//         optionsLayout.setVerticalGroup(
+//            optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGroup(optionsLayout.createSequentialGroup()
+//                .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                    .addComponent(arraySize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                    .addComponent(loops, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+//                .addGap(18, 18, 18)
+//                .addComponent(testSorted)
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+//                .addComponent(startTest)
+//                .addContainerGap())
+//        );
     }
 
     private void confAlgoLayout() {
-        algoCreateHorizontalGroup();
-        algoCreateVerticalGroup();
+        algoSetHorizontalGroup();
+        algoSetVerticalGroup();
     }
 
-    private void algoCreateVerticalGroup() {
+    private void algoSetVerticalGroup() {
         SequentialGroup seq = algoLayout.createSequentialGroup();
 
         ParallelGroup loopGroup = algoLayout.createParallelGroup(GroupLayout.Alignment.BASELINE);
@@ -158,7 +219,7 @@ public class GUI extends JFrame {
                 .addGroup(GroupLayout.Alignment.TRAILING, seq));
     }
 
-    private void algoCreateHorizontalGroup() {
+    private void algoSetHorizontalGroup() {
         SequentialGroup mainSeq = algoLayout.createSequentialGroup().addGap(35);
 
         SequentialGroup loop = algoLayout.createSequentialGroup();
@@ -204,8 +265,7 @@ public class GUI extends JFrame {
         countingSort = new JCheckBox();
         standardSort = new JCheckBox();
         testSorted = new JCheckBox();
-
-        setCheckBoxes();
+        confCheckBoxes();
 
         separator = new JSeparator();
         enabled = new JLabel();
@@ -213,19 +273,39 @@ public class GUI extends JFrame {
         lastSortTime = new JLabel();
         averageSortTime = new JLabel();
         sortedSortTime = new JLabel();
-
-        setLabels();
+        confLabels();
 
         arraySize = new JSlider();
         loops = new JSlider();
+        confSliders();
 
         startTest = new JButton();
+        startTest.setFont(font);
+        startTest.setText("Start Test");
 
         font = new Font("Dialog", 0, 12);
         boldedFont = new Font("Dialog", 1, 12);
     }
 
-    private void setCheckBoxes() {
+    private void confSliders() {
+        arraySize.setMajorTickSpacing(250000);
+        arraySize.setMaximum(1000000);
+        arraySize.setMinorTickSpacing(1000);
+        arraySize.setPaintLabels(true);
+        arraySize.setPaintTicks(true);
+        arraySize.setValue(100000);
+        arraySize.setBorder(BorderFactory.createTitledBorder("Size of the Array"));
+
+        loops.setMajorTickSpacing(1);
+        loops.setMaximum(10);
+        loops.setMinimum(1);
+        loops.setMinorTickSpacing(1);
+        loops.setPaintLabels(true);
+        loops.setPaintTicks(true);
+        loops.setBorder(BorderFactory.createTitledBorder("Number of Loops"));
+    }
+
+    private void confCheckBoxes() {
         bubbleSort.setFont(font);
         bubbleSort.setSelected(true);
         bubbleSort.setLabel("Bubble Sort");
@@ -254,7 +334,7 @@ public class GUI extends JFrame {
         testSorted.setLabel("Test Algorithms against sorted array");
     }
 
-    private void setLabels() {
+    private void confLabels() {
         enabled.setFont(font);
         enabled.setText("Enabled");
 

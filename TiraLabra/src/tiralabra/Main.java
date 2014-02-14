@@ -1,5 +1,6 @@
 package tiralabra;
 
+import tiralabra.gui.GUI;
 import java.util.Random;
 import javax.swing.SwingUtilities;
 import tiralabra.heap.Heap;

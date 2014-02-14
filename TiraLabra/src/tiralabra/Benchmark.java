@@ -116,30 +116,13 @@ public class Benchmark {
     }
 
     private void testSortedArrays(int[] testArray) {
-        
-        if (bubble) {
-            testBubble(testArray, true);
-        }
+        testBubble(testArray, true);
+        testHeap(testArray, true);
+        testMerge(testArray, true);
+        testQuick(testArray, true);
+        testCounting(testArray, true);
+        testStandard(testArray, true);
 
-        if (heap) {
-            testHeap(testArray, true);
-        }
-
-        if (merge) {
-            testMerge(testArray, true);
-        }
-
-        if (quick) {
-            testQuick(testArray, true);
-        }
-
-        if (counting) {
-            testCounting(testArray, true);
-        }
-
-        if (standard) {
-            testStandard(testArray, true);
-        }
         gui.setSortedTexts();
     }
 

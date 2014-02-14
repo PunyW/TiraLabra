@@ -18,35 +18,8 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GUI gui = new GUI();
-                gui.setVisible(true);
-            }
-        });
-
-//        Scanner scanner = new Scanner(System.in);
-//        while (true) {
-//            System.out.println("What do you want to test?");
-//            System.out.println("1: Heaps \t 2: Sorting Algorithms");
-//            System.out.println("Anything else quits");
-//
-//            int input = Integer.parseInt(scanner.nextLine());
-//
-//            if (input == 2) {
-//
-//                BenchmarkSorting benchmark = new BenchmarkSorting(1000000);
-//                benchmark.run(true);
-//                benchmark.setSize(10000);
-//                benchmark.run(false);
-//
-//            } else if (input == 1) {
-//                testHeaps();
-//            } else {
-//                System.exit(0);
-//            }
-//        }
+        Interface ui = new Interface();
+        ui.run();
     }
 
     private static void testHeaps() {

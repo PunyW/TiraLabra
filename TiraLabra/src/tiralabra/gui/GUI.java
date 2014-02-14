@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.LayoutStyle;
 import javax.swing.border.TitledBorder;
+import tiralabra.Interface;
 
 /**
  *
@@ -21,6 +22,7 @@ import javax.swing.border.TitledBorder;
  */
 public class GUI extends JFrame {
 
+    private Interface ui;
     /**
      * Fonts
      */
@@ -69,7 +71,8 @@ public class GUI extends JFrame {
     // Button to start the test
     private JButton startTest;
 
-    public GUI() {
+    public GUI(Interface ui) {
+        this.ui = ui;
         initUI();
     }
 
@@ -161,7 +164,7 @@ public class GUI extends JFrame {
                 GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
         sliders.addComponent(loops, GroupLayout.PREFERRED_SIZE,
                 GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-        
+
         components.addGroup(sliders);
         components.addGap(20, 20, 20);
         components.addComponent(testSorted)
@@ -169,19 +172,6 @@ public class GUI extends JFrame {
         components.addComponent(startTest).addContainerGap();
 
         optionsLayout.setVerticalGroup(main.addGroup(components));
-
-//         optionsLayout.setVerticalGroup(
-//            optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGroup(optionsLayout.createSequentialGroup()
-//                .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                    .addComponent(arraySize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                    .addComponent(loops, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-//                .addGap(18, 18, 18)
-//                .addComponent(testSorted)
-//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-//                .addComponent(startTest)
-//                .addContainerGap())
-//        );
     }
 
     private void confAlgoLayout() {
@@ -295,7 +285,9 @@ public class GUI extends JFrame {
         arraySize.setPaintTicks(true);
         arraySize.setValue(100000);
         arraySize.setBorder(BorderFactory.createTitledBorder("Size of the Array"));
-
+        arraySize.addChangeListener(ui.getSliderListener());
+        arraySize.setName("size");
+        
         loops.setMajorTickSpacing(1);
         loops.setMaximum(10);
         loops.setMinimum(1);
@@ -303,13 +295,16 @@ public class GUI extends JFrame {
         loops.setPaintLabels(true);
         loops.setPaintTicks(true);
         loops.setBorder(BorderFactory.createTitledBorder("Number of Loops"));
+        loops.setName("loops");
+        loops.addChangeListener(ui.getSliderListener());
     }
 
     private void confCheckBoxes() {
         bubbleSort.setFont(font);
         bubbleSort.setSelected(true);
         bubbleSort.setLabel("Bubble Sort");
-
+        bubbleSort.addItemListener(ui.getCheckBoxListener().getBl());
+        
         mergeSort.setFont(font);
         mergeSort.setSelected(true);
         mergeSort.setLabel("Merge Sort");

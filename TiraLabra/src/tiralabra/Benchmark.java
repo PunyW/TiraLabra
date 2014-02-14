@@ -14,21 +14,21 @@ import tiralabra.algorithms.QuickSort;
  *
  * @author Joel
  */
-public class BenchmarkSorting {
+public class Benchmark {
 
     private long bubbleTime, mergeTime, heapTime, quickTime, countingTime, standardTime;
     private long bubbleAvg, mergeAvg, heapAvg, quickAvg, countingAvg, standardAvg;
     private int arraySize;
-    private final int loops = 10;
+    private int loops = 10;
     private final int maxInt = 9999999;
-    private boolean disableBubble;
+    private boolean bubble, merge, heap, quick, counting, standard;
 
     /**
      *
      * @param arraySize the size of the testing arrays
      */
-    public BenchmarkSorting(int arraySize) {
-        this.arraySize = arraySize;
+    public Benchmark() {
+        this.arraySize = 100000;
         bubbleTime = 0;
         mergeTime = 0;
         heapTime = 0;
@@ -41,6 +41,39 @@ public class BenchmarkSorting {
         this.arraySize = size;
     }
 
+    public void setLoops(int size) {
+        loops = size;
+    }
+
+    public void test() {
+        System.out.println(arraySize);
+        System.out.println(loops);
+    }
+
+    public void setBubble(boolean enabled) {
+        bubble = enabled;
+    }
+
+    public void setMerge(boolean enabled) {
+        merge = enabled;
+    }
+
+    public void setHeap(boolean enabled) {
+        heap = enabled;
+    }
+
+    public void setQuick(boolean enabled) {
+        quick = enabled;
+    }
+
+    public void setCounting(boolean enabled) {
+        counting = enabled;
+    }
+
+    public void setStandard(boolean enabled) {
+        standard = enabled;
+    }
+
     /**
      * Loop through multiple tests with all the algorithms, and get their
      * average spent time sorting an array
@@ -49,7 +82,6 @@ public class BenchmarkSorting {
      * disable bubble sorting.
      */
     public void run(boolean disableBubble) {
-        this.disableBubble = disableBubble;
         int[] testArray = null;
 
         for (int i = 0; i < loops; i++) {
@@ -97,7 +129,7 @@ public class BenchmarkSorting {
     }
 
     private void printStats() {
-        if (!disableBubble) {
+        if (bubble) {
             System.out.println("Bubble Sort: " + bubbleAvg / 1000000);
         }
         System.out.println("Merge Sort: " + mergeAvg / 1000000);

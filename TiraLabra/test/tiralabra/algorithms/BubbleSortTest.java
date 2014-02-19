@@ -41,7 +41,10 @@ public class BubbleSortTest {
 
         BubbleSort.sort(testArray);
         checkArray();
+        BubbleSort.sort(testArray);
+        checkArray();
     }
+    
 
     @Test
     public void worksRepeadetly() {
@@ -57,8 +60,8 @@ public class BubbleSortTest {
         int[] special = new int[]{1, 1, 1, 3, 3, 3, 1, 5, 5, 1};
 
         BubbleSort.sort(special);
-        for (int i = 0; i < special.length; i++) {
-            if (testArray[i] > testArray[i + 1]) {
+        for (int i = 0; i < special.length - 1; i++) {
+            if (special[i] > special[i + 1]) {
                 fail("There should be no larger numbers before smaller ones, "
                         + "in the sorted array. ");
             }

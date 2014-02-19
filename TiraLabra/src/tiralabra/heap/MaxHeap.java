@@ -61,8 +61,7 @@ public class MaxHeap<E extends Comparable<E>> extends AbstractHeap<E> {
 
     @Override
     protected void heapInsert(E node) {
-        int i = currentSize;
-        currentSize++;
+        int i = currentSize++;
 
         while (i > 0) {
             int parentIndex = getParentIndex(i - 1);

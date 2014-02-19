@@ -12,11 +12,12 @@ public class QuickSort {
      * @param A Array to be sorted
      */
     public static void sort(int[] A) {
-        // For arrays larger than 100 000 check if it's already sorted
-        if (A.length > 10000) {
-            if (checkIfSorted(A)) {
-                return;
-            }
+        /**
+         * Check that the array isn't already sorted, if it is return as we
+         * don't need to touch a sorted array.
+         */
+        if (checkIfSorted(A)) {
+            return;
         }
         sort(A, 0, A.length - 1);
     }
@@ -56,23 +57,23 @@ public class QuickSort {
      */
     private static int partition(int[] A, int left, int right) {
         int pivot = A[left];
-        int i = left - 1;
-        int j = right + 1;
+        left = left - 1;
+        right = right + 1;
 
-        while (i < j) {
-            i++;
-            j--;
-            while (A[j] > pivot) {
-                j--;
+        while (left < right) {
+            left++;
+            right--;
+            while (A[right] > pivot) {
+                right--;
             }
-            while (A[i] < pivot) {
-                i++;
+            while (A[left] < pivot) {
+                left++;
             }
-            if (i < j) {
-                swap(A, i, j);
+            if (left < right) {
+                swap(A, left, right);
             }
         }
-        return j;
+        return right;
     }
 
     private static void swap(int[] A, int i, int j) {

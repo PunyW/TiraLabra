@@ -23,16 +23,23 @@ public class QuickSortTest {
     public QuickSortTest() {
     }
 
-    @Before
-    public void setUp() {
-        testArray = new int[SIZE];
+    private void randomizeArray() {
+        randomizeArraySize(SIZE);
     }
 
-    private void randomizeArray() {
+    private void randomizeArraySize(int size) {
+        testArray = new int[size + 1];
         Random random = new Random();
-        for (int i = 0; i < SIZE; i++) {
-            testArray[i] = random.nextInt(MAX);
+        for (int i = 0; i < size; i++) {
+            testArray[i] = random.nextInt(size * 2);
         }
+    }
+
+    @Test
+    public void testHuge() {
+        randomizeArraySize(10000000);
+        QuickSort.sort(testArray);
+        checkArray();
     }
 
     @Test
@@ -57,8 +64,8 @@ public class QuickSortTest {
         int[] special = new int[]{1, 1, 1, 3, 3, 3, 1, 5, 5, 1};
 
         QuickSort.sort(special);
-        for (int i = 0; i < special.length; i++) {
-            if (testArray[i] > testArray[i + 1]) {
+        for (int i = 0; i < special.length - 1; i++) {
+            if (special[i] > special[i + 1]) {
                 fail("There should be no larger numbers before smaller ones, "
                         + "in the sorted array. ");
             }

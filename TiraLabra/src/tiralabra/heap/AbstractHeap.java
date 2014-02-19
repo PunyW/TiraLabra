@@ -101,10 +101,8 @@ public abstract class AbstractHeap<E extends Comparable<E>> implements Heap<E> {
 
         E item = (E) heap[0];
 
-        heap[0] = heap[currentSize - 1];
-        heap[currentSize - 1] = null;
-
-        currentSize--;
+        heap[0] = heap[--currentSize ];
+        heap[currentSize] = null;
 
         heapify(0);
 

@@ -6,10 +6,6 @@
 package tiralabra.algorithms;
 
 import java.util.Random;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -20,24 +16,34 @@ import static org.junit.Assert.*;
 public class CountingSortTest {
 
     private int[] testArray;
-    private final int SIZE = 1000;
-    private final int MAX = 100000;
-
-    @Before
-    public void setUp() {
-        testArray = new int[SIZE];
-    }
+    private final int SIZE = 10000;
+    private final int MAX = SIZE * 2;
 
     private void randomizeArray() {
+        randomizeArraySize(SIZE);
+    }
+
+    private void randomizeArraySize(int size) {
+        testArray = new int[size + 1];
         Random random = new Random();
-        for (int i = 0; i < SIZE; i++) {
-            testArray[i] = random.nextInt(MAX);
+        for (int i = 0; i < size; i++) {
+            testArray[i] = random.nextInt(size * 2);
         }
     }
 
     @Test
-    public void testBubbleSort() {
+    public void testHuge() {
+        randomizeArraySize(10000000);
+        CountingSort.sort(testArray, 20000000);
+        checkArray();
+    }
+
+    @Test
+    public void testCountingSort() {
         randomizeArray();
+
+        CountingSort.sort(testArray, MAX);
+        checkArray();
 
         CountingSort.sort(testArray, MAX);
         checkArray();
@@ -57,8 +63,8 @@ public class CountingSortTest {
         int[] special = new int[]{1, 1, 1, 3, 3, 3, 1, 5, 5, 1};
 
         CountingSort.sort(special, 5);
-        for (int i = 0; i < special.length; i++) {
-            if (testArray[i] > testArray[i + 1]) {
+        for (int i = 0; i < special.length - 1; i++) {
+            if (special[i] > special[i + 1]) {
                 fail("There should be no larger numbers before smaller ones, "
                         + "in the sorted array. ");
             }
